@@ -213,13 +213,12 @@ class Salary(models.Model):
     def __str__(self):
         return str(self.id)
     
-    
 class Attendance(models.Model):
 
     # overwrites the default manager
     objects = Attendance_Manager()
     
-    attendance_date = models.DateField(default = timezone.datetime.now().date())
+    attendance_date = models.DateField(default = timezone.datetime.now)
 
     employee_extra_info = models.ForeignKey(
         Employee_Extra_Info,
