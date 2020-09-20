@@ -1,0 +1,5 @@
+.sass-cache/
+*/__pycache__/*
+venv/
+db.sqlite3
+tmp/

@@ -1,0 +1,92 @@
+body, body::before, body::after {
+  background: #97c6d4; }
+
+.my-btn {
+  border-width: .75px;
+  border-style: solid;
+  border-radius: 2px;
+  margin: 1px;
+  transition: all .2s;
+  font-weight: 500; }
+
+.my-btn-primary {
+  background: #08859f;
+  border-color: #08859f;
+  color: #fff; }
+
+.my-btn-primary:hover {
+  background: #077187;
+  border-color: #077187; }
+
+.btn-add {
+  background: #077187;
+  border-color: #077187;
+  margin: 3px;
+  padding: 10px;
+  color: #fff;
+  border: none; }
+  .btn-add span {
+    margin-right: 3px;
+    padding: 0 3px;
+    border-radius: 10%;
+    font-weight: 600;
+    font-size: 18px;
+    box-sizing: border-box;
+    display: inline-block; }
+
+/* all screens */
+header.header {
+  background: #97c6d4;
+  border-bottom: 1px solid #4e9eb7;
+  display: block;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  margin-bottom: 10px; }
+
+.navbar-brand {
+  font-weight: 700;
+  color: #006697 !important; }
+
+/* on xs, sm screens */
+@media (min-width: 0px) and (max-width: 768px) {
+  #login-btn, #logout-btn, #employer-signup-btn {
+    font-weight: 500;
+    border-style: none; } }
+/* on >= md  screens */
+@media (min-width: 768px) {
+  header #navbarSupportedContent {
+    position: absolute;
+    right: 0; }
+
+  .navbar-brand {
+    font-size: 24px; }
+
+  #login-btn {
+    background: #08859f;
+    border-color: #08859f; }
+    #login-btn a {
+      color: #fff; }
+
+  #login-btn:hover {
+    background: #077187;
+    border-color: #077187; }
+
+  #logout-btn {
+    background: #006697;
+    border-color: #006697; }
+    #logout-btn a {
+      color: #fff; }
+
+  #logout-btn:hover {
+    background: #00547d;
+    border-color: #00547d; }
+
+  #employer-signup-btn {
+    border-color: #659b71; }
+
+  #employer-signup-btn:hover {
+    background: #659b71; } }
+/* employer => employees */
+
+/*# sourceMappingURL=style.css.map */

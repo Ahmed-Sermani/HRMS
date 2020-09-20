@@ -1,0 +1,79 @@
+/* all screens */
+
+header.header { 
+    background: lighten($myrtleGreen, 40%);
+    border-bottom: 1px solid lighten($myrtleGreen, 20%);
+    display: block;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    margin-bottom: 10px;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    color: lighten($prussianBlue, 15%) !important;
+}
+
+
+/* on xs, sm screens */
+@media (min-width: 0px) and (max-width: 768px) {
+    #login-btn, #logout-btn, #employer-signup-btn {
+        font-weight: 500;
+        border-style: none;
+    }
+}
+
+/* on >= md  screens */
+@media (min-width: 768px) {
+    header {
+    
+        #navbarSupportedContent {
+            position: absolute;
+            right: 0;
+            
+        }
+    }
+    
+    .navbar-brand {
+        font-size: 24px;
+    
+    }
+    
+    
+    #login-btn {
+        background: lighten($metallicSeaweed, 5%);
+        border-color: lighten($metallicSeaweed, 5%);
+        
+        a {
+            color: $white;
+        }
+    }
+    
+    #login-btn:hover {
+        background: $metallicSeaweed;
+        border-color: $metallicSeaweed;
+    }
+    
+    #logout-btn {
+        background: lighten($prussianBlue, 15%);
+        border-color: lighten($prussianBlue, 15%);
+        
+        a {
+            color: $white;
+        }
+    }
+    
+    #logout-btn:hover {
+        background: lighten($prussianBlue, 10%);
+        border-color: lighten($prussianBlue, 10%);
+    }
+    
+    #employer-signup-btn {
+        border-color: darken($shinyShamrock, 5%);
+    }
+    
+    #employer-signup-btn:hover {
+        background: darken($shinyShamrock, 5%);
+    }
+}

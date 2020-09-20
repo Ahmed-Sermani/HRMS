@@ -1,0 +1,64 @@
+
+<button type="button" class="my-btn btn-add" data-toggle="collapse" data-target="#assetAddForm"><span>+</span>Add Asset</button>
+{% if assets %}
+<button type="button" class="my-btn btn-add" data-toggle="collapse" data-target="#assetAssignForm"><span>-&gt;</span>Assign Asset</button>
+{% endif %}
+{% if assigned_assets %}
+<button type="button" class="my-btn btn-add" data-toggle="collapse" data-target="#assetReclaimForm"><span>&lt;-</span>Reclaim Asset</button>
+{% endif %}
+
+<div class="collapse col-md-6" id="assetAddForm">
+    <div class="asset-add-form-wrapper">
+        {% include './asset_add.html' %}
+    </div>
+</div>
+
+<div class="collapse col-md-6" id="assetAssignForm">
+    <div class="asset-assign-form-wrapper">
+        {% include './asset_assign.html' %}
+    </div>
+</div>
+
+<div class="collapse col-md-6" id="assetReclaimForm">
+    <div class="asset-reclaim-form-wrapper">
+        {% include './asset_reclaim.html' %}
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-hover table-bordered mt-3">
+    <thead>
+        <tr>
+            <th>Asset ID</th>
+            <th>Asset Description</th>
+            <th>Assigned To</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for asset in assets %}
+    
+        <tr>
+            <td>{{ asset.0.asset }}</td>
+            <td>{{ asset.0.description }}</td>
+            <td>
+                {% if asset.1 is not None %}
+                    {{ asset.1.user.email }}
+                {% else %}
+                    <em class="text-muted">Not assigned yet</em>
+                {% endif %}
+            </td>
+        </tr>
+                
+    
+    {% empty %}
+        <td colspan="8" class="text-muted">
+            <em>
+            You have not added any assets for now.<br>
+            Use the button above to do so.
+            </em>
+        </td>
+            
+    {% endfor %}
+    </tbody>
+    </table>
+</div>

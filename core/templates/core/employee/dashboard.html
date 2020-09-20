@@ -1,0 +1,24 @@
+{% extends 'core/base.html' %}
+
+{% block title %}HRMS - Dashboard{% endblock %}
+
+{% block content %}
+    <a class="nav-link active btn btn-dark"  href="{% url 'core:employee_dashboard' %}main">Main DashBoard</a>
+    <div class="main-tabbed-nav mb-3 ">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" id="employee-assigned-assets-tab" href="#">Assigned Assets</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="employee-profile-tab" href="#">My Account</a>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="main-content card">
+        <div class="card-body">
+            <!-- content -->...
+        </div>
+    </div>
+    
+{% endblock %}

@@ -1,0 +1,6 @@
+django > 3.0
+django-heroku
+gunicorn
+django-crispy-forms
+pusher
+six

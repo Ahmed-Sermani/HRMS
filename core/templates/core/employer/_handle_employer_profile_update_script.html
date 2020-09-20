@@ -1,0 +1,24 @@
+<script type="text/javascript">
+
+    /* employer profile update handler */
+    $('#employer-profile-form').submit(function(e){
+        e.preventDefault();
+        
+        /* read the form */
+        let formData = {
+            'csrfmiddlewaretoken': $("input[name='csrfmiddlewaretoken']").val(),
+            'username': $("input[name='username']").val(),
+            'email': $("input[name='email']").val(),
+            'phone_number': $("input[name='phone_number']").val(),
+            'company_name': $("input[name='company_name']").val(),
+            'number_of_employees': $("select[name='number_of_employees']").val()
+        }
+        
+        let url = $('#employer-profile-form').attr('action');
+        
+        /* post form using ajax */
+        $.post(url, formData, function(data, status){
+            $('.main-content .card-body').html(data);
+        });
+    });
+</script>
