@@ -45,9 +45,13 @@ def positive_validator(value):
 
 
 def days_of_week_string_validator(value):
-   days_of_week = 'SMTWHFA'
-   for day in value.upper():
-       if day not in days_of_week:
-           raise ValidationError("invalid days_of_week the allowed charactor is {0}".format(days_of_week))
-    
-    
+    days_of_week = '1234567'
+    if not value.isdecimal():
+        raise ValidationError("invalid days_of_week the allowed charactor is {0}".format(days_of_week))
+    for x in value:
+        if int(x) > 7:
+            raise ValidationError("invalid days_of_week the allowed charactor is {0}".format(days_of_week))
+
+
+def map_dayweek(dayweek):
+    return (dayweek + 2) % 7

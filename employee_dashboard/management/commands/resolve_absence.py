@@ -63,5 +63,4 @@ class Command(BaseCommand):
 
             )
 
-        self.stdout.write(self.style.SUCCESS(
-            'Successfully All Absence Scheduled'))
+        self.stdout.write(self.style.SUCCESS('Successfully All Absence Scheduled'))

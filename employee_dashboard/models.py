@@ -5,10 +5,11 @@ from django.core.exceptions import ValidationError
 from django.utils import timezone
 from .managers import Attendance_Manager
 from .utils import \
-     _path_and_rename_contract_file ,\
-     _path_and_rename_profile_img ,\
-     positive_validator ,\
-     days_of_week_string_validator
+    _path_and_rename_contract_file ,\
+    _path_and_rename_profile_img ,\
+    positive_validator ,\
+    days_of_week_string_validator ,\
+    map_dayweek
 
 
 class Employee_Extra_Info(models.Model):
@@ -257,14 +258,14 @@ class Shift(models.Model):
     
     
     """
-    this will be like 'SMTWHFA'
-    S = Sunday
-    M = Monday
-    T = Tuesday
-    W = Wensday
-    H = Thursday
-    F = Friday
-    A = Saturday
+    this will be like '1234567'
+    1 = Sunday
+    2 = Monday
+    3 = Tuesday
+    4 = Wensday
+    5 = Thursday
+    6 = Friday
+    7 = Saturday
 
     will validate this by field validator
     """
@@ -286,6 +287,10 @@ class Shift_Subscription(models.Model):
         Employee_Extra_Info,
         on_delete=models.CASCADE
     )
+
+    def is_off_today(self):
+        weekday = map_dayweek(date.today().weekday())
+        return str(weekday) not in self.shift.days_of_week
 
     def __str__(self):
         return str(self.id)
