@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
             name='Employee_Extra_Info',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('img', models.ImageField(blank=True, height_field=100, null=True, upload_to=employee_dashboard.models._path_and_rename_profile_img, width_field=100)),
+                ('img', models.ImageField(blank=True, height_field=100, null=True, upload_to=employee_dashboard.utils._path_and_rename_profile_img, width_field=100)),
                 ('work_type', models.CharField(choices=[('Full Time', 'Full Time'), ('Part Time', 'Part Time'), ('Remotely', 'Remotely')], default='Full Time', max_length=20)),
                 ('work_location', models.CharField(blank=True, max_length=100, null=True)),
                 ('birth_date', models.DateField()),
@@ -40,7 +40,7 @@ class Migration(migrations.Migration):
             name='Contract',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('file', models.FileField(upload_to=employee_dashboard.models._path_and_rename_contract_file)),
+                ('file', models.FileField(upload_to=employee_dashboard.utils._path_and_rename_contract_file)),
                 ('employee_extra_info', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='employee_dashboard.Employee_Extra_Info')),
             ],
         ),

@@ -37,7 +37,7 @@ class Command(BaseCommand):
 
             # now check for the number of hours allowed in the setting if exceeded then consider it absent
 
-            if number_of_late_hours >= settings.HOURS_LATE:
+            if number_of_late_hours >= settings.HOURS_LATE and (not shift_subscription.is_off_today()):
 
                 attend.status = 'Absent'
             else:
@@ -55,11 +55,14 @@ class Command(BaseCommand):
         now = timezone.now().time()
 
         for employee in absent_employees:
+
+            shift_subscription = Shift_Subscription.objects.get( employee_extra_info = employee )
+
             Attendance.objects.create(
-                employee_extra_info=employee,
-                check_in=now,
-                check_out=now,
-                status='Absent'
+                employee_extra_info = employee,
+                check_in = now,
+                check_out = now,
+                status = 'Present' if shift_subscription.is_off_today() else 'Absent'
 
             )
 
