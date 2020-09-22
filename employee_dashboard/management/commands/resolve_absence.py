@@ -57,7 +57,7 @@ class Command(BaseCommand):
         for employee in absent_employees:
 
             shift_subscription = Shift_Subscription.objects.get( employee_extra_info = employee )
-
+            
             Attendance.objects.create(
                 employee_extra_info = employee,
                 check_in = now,

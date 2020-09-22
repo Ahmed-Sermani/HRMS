@@ -1,6 +1,6 @@
 from django.db import models
 from django.core.exceptions import ValidationError
-from employee_dashboard import utils
+from employee_dashboard.utils import _path_and_rename_profile_img , positive_validator
 from datetime import date
 
 class Employee_Extra_Info(models.Model):
@@ -18,7 +18,7 @@ class Employee_Extra_Info(models.Model):
 
     
     img = models.ImageField(
-        upload_to = utils._path_and_rename_profile_img,
+        upload_to = _path_and_rename_profile_img,
         blank = True,
         null = True,
         height_field = 100,
@@ -83,7 +83,7 @@ class Employee_Extra_Info(models.Model):
     )
 
     base_salary = models.FloatField(
-        validators=[utils.positive_validator]
+        validators=[positive_validator]
         )
 
 
