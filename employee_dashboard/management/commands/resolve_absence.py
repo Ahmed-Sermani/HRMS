@@ -46,7 +46,7 @@ class Command(BaseCommand):
 
         # lastly the employee the does not present in the list create attendance record and make then absent
 
-        # TODO: when time off implemented add employee attendance record with on leave status
+        # TODO: when time off implemented add employee attendance record with 'on leave' status
 
         absent_employees = Employee_Extra_Info.objects.all().exclude(
             pk__in=checked_in.values_list('employee_extra_info', flat=True)
