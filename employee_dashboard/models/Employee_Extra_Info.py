@@ -1,6 +1,6 @@
 from django.db import models
 from django.core.exceptions import ValidationError
-from employee_dashboard.utils import _path_and_rename_profile_img , positive_validator
+from employee_dashboard.utils import media_uploader , positive_validator
 from datetime import date
 
 class Employee_Extra_Info(models.Model):
@@ -18,11 +18,9 @@ class Employee_Extra_Info(models.Model):
 
     
     img = models.ImageField(
-        upload_to = _path_and_rename_profile_img,
+        upload_to = media_uploader('profile_imgs'),
         blank = True,
-        null = True,
-        height_field = 100,
-        width_field = 100,
+        null = True
         )
 
 
@@ -86,8 +84,47 @@ class Employee_Extra_Info(models.Model):
         validators=[positive_validator]
         )
 
+    #TODO: add this when the employer side is implemented 
+    # job_applicant = models.ForeignKey('job_application')
 
 
+    gender = models.CharField(
+        max_length = 10,
+        choices = [
+            ('Male' , 'Male'),
+            ('Female' , 'Female')
+        ],
+        default = 'Male'
+        )
+
+    salutation_prefix = [
+        ('Prof','Prof'),
+        ('Master','Master'),
+        ('Miss','Madam'),
+        ('Mrs','Mrs'),
+        ('Dr','Dr'),
+        ('Mr','Mr'),
+        ('Ms','Ms'),
+        ('Eng','Eng'),
+        ('Dev','Dev')
+    ]
+
+    salutation = models.CharField(
+        max_length = 10,
+        choices = salutation_prefix,
+        null = True , 
+        blank = True
+    )
+
+
+    status = models.CharField(
+        max_length = 10,
+        choices = [
+            ('Active' , 'Actice'),
+            ('Left' , 'Left')
+        ],
+        default = 'Actice'
+        )
     @property
     def age(self):
         today = date.today()

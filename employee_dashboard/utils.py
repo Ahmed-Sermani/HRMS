@@ -2,34 +2,27 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from uuid import uuid4
 import os
+import functools
 
 
-# rename uploaded Images
-def _path_and_rename_profile_img(instance, filename):
-    upload_to = 'profile_imgs'
-    ext = filename.split('.')[-1]
-    # get filename
-    if instance.pk:
-        filename = '{}.{}'.format(instance.pk, ext)
-    else:
-        # set filename as random string
-        filename = '{}.{}'.format(uuid4().hex, ext)
-    # return the whole path to the file
-    return os.path.join(upload_to, filename)
+def media_uploader(directory: str):
+    directory = directory
+    
+    return functools.partial(upload , directory = directory)
+
+def upload(instance, filename , directory):
+        upload_to = directory
+        ext = filename.split('.')[-1]
+        # get filename
+        if instance.pk:
+            filename = '{}.{}'.format(instance.pk, ext)
+        else:
+            # set filename as random string
+            filename = '{}.{}'.format(uuid4().hex, ext)
+        # return the whole path to the file
+        return os.path.join(upload_to, filename)
 
 
-# rename uploaded file
-def _path_and_rename_contract_file(instance, filename):
-    upload_to = 'contracts'
-    ext = filename.split('.')[-1]
-    # get filename
-    if instance.pk:
-        filename = '{}.{}'.format(instance.pk, ext)
-    else:
-        # set filename as random string
-        filename = '{}.{}'.format(uuid4().hex, ext)
-    # return the whole path to the file
-    return os.path.join(upload_to, filename)
 
 
 def positive_validator(value):

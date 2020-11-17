@@ -9,6 +9,16 @@ class Salary(models.Model):
         on_delete=models.DO_NOTHING
     )
 
+    mode = models.CharField(
+        max_length = 10,
+        choices = [
+        ('Bank' , 'Bank'),
+        ('Cash' , 'Cash'),
+        ('Check' , 'Check')
+        ],
+        default = 'Bank'
+    )
+
     GOSI_salary = models.FloatField(
         validators=[positive_validator]
         )
