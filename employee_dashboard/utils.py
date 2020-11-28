@@ -83,6 +83,6 @@ def validate_polygon(value):
             raise ValidationError()
     except:
         raise ValidationError("""please provide correct data structure for polygon note
-                                 note that it has to container attribute [points] which is
+                                 that it has to contain attribute [points] which is
                                  array of points where each point is array of length 2 with
                                  string data that convertable to float and valid [long,lat]""")
