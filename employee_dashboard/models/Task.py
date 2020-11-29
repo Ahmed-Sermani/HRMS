@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.timezone import now
 class Task(models.Model):
-    assigned_to = models.ForeignKey('Employee_Extra_info')
+    assigned_to = models.ForeignKey('Employee_Extra_info' , on_delete=models.CASCADE)
 
     Title = models.CharField(max_length = 50)
 

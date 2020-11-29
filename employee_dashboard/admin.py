@@ -8,7 +8,9 @@ from .models import Attendance ,\
    Shift_Subscription,\
    Report,\
    Bill,\
-   Accountant
+   Accountant,\
+   Request,\
+   Task
 
 
 # Register models to admin board
@@ -22,3 +24,5 @@ admin.site.register(Shift_Subscription.Shift_Subscription)
 admin.site.register(Report.Report)
 admin.site.register(Bill.Bill)
 admin.site.register(Accountant.Accountant)
+admin.site.register(Request.Request)
+admin.site.register(Task.Task)
