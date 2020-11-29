@@ -29,6 +29,8 @@ INSTALLED_APPS = [
     'crispy_forms',
 
     'employee_dashboard',
+
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -163,3 +165,10 @@ MEDIA_URL = '/media/'
 
 # the maximum number of hours that an employee allowed to be late before considered absent
 HOURS_LATE = 3
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
