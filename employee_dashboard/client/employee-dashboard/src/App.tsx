@@ -1,44 +1,34 @@
-import React , {useState} from 'react';
+import React from 'react';
 import 'antd/dist/antd.css';
 import './index.css';
-import { Layout, Menu, Breadcrumb } from 'antd';
-import {
-  DesktopOutlined,
-  PieChartOutlined,
-  FileOutlined,
-  TeamOutlined,
-  UserOutlined,
-} from '@ant-design/icons';
+import { Layout } from 'antd';
+import SideNav from './components/SideNav';
+import Profile from './components/Profile'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import AppHeader from './components/Header'
 
 
-const { Header, Content, Footer, Sider } = Layout;
-const { SubMenu } = Menu;
-import Side_nav from "./components/Side_nav";
-
-
-const App: React.FC = () =>  {
+const App: React.FC = () => {
 
   return (
-    <Layout style={{ minHeight: '100vh' }}>
-    <Side_nav/>
-    <Layout className="site-layout">
-      <Header className="site-layout-background" style={{ padding: 0 }} >
-        sss
-      </Header>
-      <Content style={{ margin: '0 16px' }}>
-        <Breadcrumb style={{ margin: '16px 0' }}>
-          <Breadcrumb.Item>User</Breadcrumb.Item>
-          <Breadcrumb.Item>Bill</Breadcrumb.Item>
-        </Breadcrumb>
-        <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-          Bill is a cat.
-        </div>
-      </Content>
-      <Footer style={{ textAlign: 'center' }}>HRMS ©2020 Created by Ahmad Sermani</Footer>
-    </Layout>
-  </Layout>
-    )
+    <Router>
+      <Layout style={{ minHeight: '100vh' }}>
+
+        <SideNav />
+
+        <Layout className="site-layout">
+        <AppHeader/>
+          <Route path='/employee/profile'>
+            <Profile />
+          </Route>
+
+        </Layout>
+      </Layout>
+    </Router>
+  )
 }
+
+
 
 
 export default App;

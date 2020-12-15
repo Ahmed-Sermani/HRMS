@@ -10,3 +10,8 @@
   [data-theme="dark"] .site-layout .site-layout-background {
     background: #141414;
   }
+
+  #root > section > section > header > ul > li:nth-child(2) > span > span{
+        margin-right: 0px;
+
+  }

@@ -1,9 +1,7 @@
-import React from 'react'
 import React, { useState } from 'react';
 import { Layout, Menu } from "antd";
-const { SubMenu } = Menu;
-const {Sider} = Layout
 import { SiderProps } from "antd/lib/layout/Sider";
+import { Link } from "react-router-dom";
 
 import {
     PieChartOutlined,
@@ -12,19 +10,23 @@ import {
     TeamOutlined,
     FileOutlined
 } from '@ant-design/icons';
+const { SubMenu } = Menu;
+const { Sider } = Layout
 
 interface Props extends SiderProps{
-
+    
 }
 
-const   Side_nav: React.FC<Props> = (props : Props) =>  {
+const SideNav: React.FC<Props> = (props : Props) =>  {
     const  [collapsed , setCollapsed] = useState<boolean>(false)
     return (
     <Sider collapsible collapsed={collapsed} onCollapse={setCollapsed.bind(null, !collapsed)}>
-        <div className="logo" />
+        <div className='logo'/>
         <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-        <Menu.Item key="1" icon={<PieChartOutlined />}>
-                Option 1
+        <Menu.Item key="1" icon={<UserOutlined />}>
+            <Link to='/employee/profile'>
+                Profile
+                </Link>
         </Menu.Item>
         <Menu.Item key="2" icon={<DesktopOutlined />}>
                 Option 2
@@ -45,4 +47,4 @@ const   Side_nav: React.FC<Props> = (props : Props) =>  {
     </Sider>
     )
 }
-export default Side_nav
+export default SideNav
