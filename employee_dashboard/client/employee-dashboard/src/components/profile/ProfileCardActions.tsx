@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { Row, Col, Modal, Button, Upload, Input, Space } from "antd"
+import { Row, Col, Modal, Button, Upload, Input } from "antd"
 import { UploadOutlined } from '@ant-design/icons'
+
 
 const ProfileCardActions: React.FC = () => {
     const [visible, setVisible] = React.useState<boolean>(false);
@@ -45,18 +46,27 @@ const ProfileCardActions: React.FC = () => {
                 confirmLoading={confirmLoading}
                 onCancel={handleCancel}
                 okText='Confirm'
-                width={'40%'}
+                
             >
-                <Space direction="horizontal">
+                <Row justify={'space-between'}>
+                    <Input.Password 
+                        placeholder="current password"
+                        />
+                    
+                    
+                    <Input.Password 
+                        placeholder="old password"
+                        />
+                    
 
-                    <Input.Password placeholder="old password" />
-                    <Input.Password
-                        placeholder="new password"
-                    />
+                
+            
                     <Input.Password
                         placeholder="confirm password"
                     />
-                </Space>
+                
+                    
+                </Row>
             </Modal>
         </>
     )

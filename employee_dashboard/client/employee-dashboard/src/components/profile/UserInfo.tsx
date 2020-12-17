@@ -13,9 +13,6 @@ const UserInfo: React.FC = () => {
     return (
         <Card
             title="User Info"
-            style={{
-                width: 410
-            }}
             type={'inner'}
             cover={
                 <Image
