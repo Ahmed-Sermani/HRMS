@@ -4,7 +4,6 @@ import { SiderProps } from "antd/lib/layout/Sider";
 import { Link } from "react-router-dom";
 
 import {
-    PieChartOutlined,
     DesktopOutlined,
     UserOutlined,
     TeamOutlined,
