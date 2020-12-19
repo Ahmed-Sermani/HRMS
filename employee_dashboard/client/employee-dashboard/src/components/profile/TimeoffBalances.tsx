@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card, Row, Col, Avatar } from "antd";
-import  Airplane from '../images/Airplane'
+import  Airplane from '../SVGs/Airplane'
 
 const TimeoffBalances: React.FC = () => {
     return (
