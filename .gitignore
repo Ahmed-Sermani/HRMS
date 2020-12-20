@@ -7,3 +7,5 @@ tmp/
 media/*
 .vscode/
 */migrations/*
+employee_dashboard/client/employee-dashboard/.eslintcache
+employee_dashboard/client/employee-dashboard/debug.log

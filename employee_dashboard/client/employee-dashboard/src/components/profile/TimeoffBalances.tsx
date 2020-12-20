@@ -26,34 +26,34 @@ const TimeoffBalances: React.FC = () => {
 
                     />
                     <Divider />
-                    <Row justify={'center'}>                    
+                    <Row justify={'center'}>
                         <Title
-                        type={'secondary'}
-                        style={{
-                            textShadow: '2px 10px 30px rgba(179,33,33,0.9)'
-                        }}
-                        level={5}
-                    >
-                        Annual Vacations  
+                            type={'secondary'}
+                            style={{
+                                textShadow: '2px 10px 30px rgba(179,33,33,0.9)'
+                            }}
+                            level={5}
+                        >
+                            Annual Vacations
                     </Title>
                     </Row>
-                    <Row justify={'center'}>                    
+                    <Row justify={'center'}>
                         <Text>
                             Available Balance
                         </Text>
                     </Row>
-                    <Row justify={'center'}>                    
+                    <Row justify={'center'}>
                         <Text strong>
                             11.393
                         </Text>
                     </Row>
 
-                    <Row justify={'center'}>                    
+                    <Row justify={'center'}>
                         <Text>
                             Up to end of year
                         </Text>
                     </Row>
-                    <Row justify={'center'}>                    
+                    <Row justify={'center'}>
                         <Text strong>
                             12.255
                         </Text>
@@ -68,7 +68,7 @@ const TimeoffBalances: React.FC = () => {
                 </Col>
 
                 <Col>
-                <Avatar
+                    <Avatar
                         size={150}
                         icon={<Bandage />}
                         style={{
@@ -78,34 +78,34 @@ const TimeoffBalances: React.FC = () => {
 
                     />
                     <Divider />
-                    <Row justify={'center'}>                    
-                        <Title
-                        type={'secondary'}
-                        style={{
-                            textShadow: '2px 10px 30px rgba(179,33,33,0.9)'
-                        }}
-                        level={5}
-                    >
-                        Sick Day off  
+                    <Row justify={'center'}>
+                    <Title
+                            type={'secondary'}
+                            style={{
+                                textShadow: '2px 10px 30px rgba(179,33,33,0.9)'
+                            }}
+                            level={5}
+                        >
+                            Sick Day off
                     </Title>
                     </Row>
-                    <Row justify={'center'}>                    
+                    <Row justify={'center'}>
                         <Text>
                             Available Balance
                         </Text>
                     </Row>
-                    <Row justify={'center'}>                    
+                    <Row justify={'center'}>
                         <Text strong>
                             30.000
                         </Text>
                     </Row>
 
-                    <Row justify={'center'}>                    
+                    <Row justify={'center'}>
                         <Text>
                             Up to end of year
                         </Text>
                     </Row>
-                    <Row justify={'center'}>                    
+                    <Row justify={'center'}>
                         <Text strong>
                             30.000
                         </Text>

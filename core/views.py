@@ -11,7 +11,6 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.conf import settings
 
-import pusher
 
 from .forms import *
 from .models import User, Employer, Employee, Asset, AssignedAsset
@@ -143,7 +142,6 @@ def employer_assets(request):
     
 
 # displays a real time notifications page for the current user,
-# the notifications are delivered using pusher/channels
 @employer_required
 @login_required
 def employer_notifications(request):
@@ -340,36 +338,7 @@ def employee_set_password(request, uid):
     
     return render (request, 'core/employee/set_password.html', {'set_password_form': form, 'user': user})
 
-# pusher auth
-@require_POST
-@employer_required
-@login_required
-def pusher_auth(request):
-    '''
-    employers have only access to private-{{employer-email}} channels,
-    employer-email should match the current user
-    '''
-    socket_id = request.POST['socket_id']
-    channel_name = request.POST['channel_name']
-    
-    start_index = len('private-')
-    employer_email = channel_name[start_index:]
-    
-    if request.user.email == employer_email:
-        pusher_client = pusher.Pusher(
-                app_id = settings.APP_ID,
-                key = settings.APP_KEY,
-                secret = settings.APP_SECRET,
-                cluster = settings.APP_CLUSTER
-            )
-        
-        auth = pusher_client.authenticate(
-                channel = channel_name,
-                socket_id = socket_id
-            )
-        return JsonResponse(auth)
-    else:
-        return HttpResponseForbidden()
+
 
 
 
