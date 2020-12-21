@@ -9,3 +9,13 @@ media/*
 */migrations/*
 employee_dashboard/client/employee-dashboard/.eslintcache
 employee_dashboard/client/employee-dashboard/debug.log
+employee_dashboard/templates/asset-manifest.json
+employee_dashboard/templates/employee_dashboard_icon_rvG_icon.ico
+employee_dashboard/templates/employee_dashboard_icon.png
+employee_dashboard/templates/index.html
+employee_dashboard/templates/main.html
+employee_dashboard/templates/manifest.json
+employee_dashboard/templates/robots.txt
+employee_dashboard/templates/static/*
+employee_dashboard/static/employee_dashboard/*
+employee_dashboard/templates/*

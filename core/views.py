@@ -26,9 +26,8 @@ class LoginManager(LoginView):
         user = authenticate(request, username = username, password = password)
         if user is not None:
             login(request, user)
-            print(user)
             return redirect(self.get_success_url())
-        return render(request, super().template_name, {'error': 'invalid credentials'})    
+        return render(request, super().template_name, {'error': 'invalid credentials'})
         
 
 # handles employer signup requests
@@ -94,7 +93,7 @@ def employee_dashboard(request):
 def login_redirect(request):
     if request.user.is_employer:
         return redirect('core:employer_dashboard')
-    return redirect('core:employee_dashboard')
+    return redirect('employee_dashboard:employee_dashboard')
     
 
 # displays all employees associated with the current user,

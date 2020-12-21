@@ -1,8 +1,8 @@
 from django.urls import path
-from .views import main
+from .views.dashboard import serve_dashboard
 
 app_name='employee_dashboard'
 
 urlpatterns = [
-    path('' , main , name='main_employee_dashboard')    
+    path('' , serve_dashboard , name='employee_dashboard')    
 ]

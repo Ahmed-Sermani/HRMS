@@ -6,8 +6,6 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 @employee_required
-def main(request):
-    context = {
-        'user': request.user
-    }
-    return render(request , 'main.html' , )
+def serve_dashboard(request):
+    
+    return render(request , 'employee_dashboard/index.html' )
