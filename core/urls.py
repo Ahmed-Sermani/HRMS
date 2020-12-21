@@ -1,12 +1,11 @@
 from django.urls import path , include
 from django.contrib.auth import views as auth_views
+from core.views import LoginManager
 
 from . import views as core_views
 
 app_name = 'core'
-urlpatterns = [
-    path('', core_views.home, name='home'),
-    
+urlpatterns = [    
     # employer only
     path('employer/signup/', core_views.employer_signup, name='employer_signup'),
     path('employer/dashboard/', core_views.employer_dashboard, name='employer_dashboard'),
@@ -28,7 +27,7 @@ urlpatterns = [
     path('employee/dashboard/main/' , include(('employee_dashboard.urls' , 'employee_dashboard'), namespace='employee_dashboard') ),
     
     # all users
-    path('login/', auth_views.LoginView.as_view(), name='login'),
+    path('login/', LoginManager.as_view(), name='login'),
     path('login_redirect', core_views.login_redirect, name='login_redirect'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('activate/account/<slug:uidb64>/<slug:token>/', core_views.activate_account, name='activate_account'),

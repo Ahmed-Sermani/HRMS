@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
-from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
+from django.http import HttpResponse, HttpResponseForbidden, JsonResponse, HttpResponseRedirect
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -10,19 +10,26 @@ from django.contrib.auth.forms import SetPasswordForm
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.conf import settings
-
+from django.contrib.auth.views import LoginView
 
 from .forms import *
 from .models import User, Employer, Employee, Asset, AssignedAsset
 from .tokens import account_activation_token
 from .decorators import employer_required, employee_required
 
-def home(request):
-    '''
-    handles requests to the home page.
-    '''
-    # return render(request, 'core/home.html')
-    return redirect('core:login')
+
+class LoginManager(LoginView):
+   
+    def post(self, request):
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username = username, password = password)
+        if user is not None:
+            login(request, user)
+            print(user)
+            return redirect(self.get_success_url())
+        return render(request, super().template_name, {'error': 'invalid credentials'})    
+        
 
 # handles employer signup requests
 def employer_signup(request):

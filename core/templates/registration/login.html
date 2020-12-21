@@ -1,18 +1,97 @@
-{% extends 'core/base.html' %}
+{% load static %}
 
-{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>HRMS Login</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="{% static 'core/images/icons/favicon.ico' %}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'core/vendor/bootstrap/css/bootstrap.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'core/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'core/vendor/animate/animate.css' %}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="{% static 'core/vendor/css-hamburgers/hamburgers.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'core/vendor/select2/select2.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'core/css/util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'core/css/main.css' %}">
+<!--===============================================================================================-->
+</head>
+<body>
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<div class="login100-pic js-tilt" data-tilt>
+					<img src="{% static 'core/images/img-01.png' %}" alt="IMG">
+				</div>
 
-{% block title %} HRMS - Login{% endblock %}
+				<form id="form" action="/login/" method="post" class="login100-form validate-form">
+                    {% csrf_token %}
+					<span class="login100-form-title">
+						Member Login
+					</span>
 
-{% block content %}
-    <h4 class="text-muted">Login</h4>
-    
-    <div class="col-md-6 col-sm-8">
-        <form action="{% url 'core:login' %}" method="post" accept-charset="utf-8">
-            {% csrf_token %}
-            {{ form | crispy }}
-            <button type="submit" class="my-btn my-btn-primary p-2">Login</button>
-        </form>
-    </div>
-    
-{% endblock %}
+					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+						<input id="email" class="input100" type="text" name="username" placeholder="Email">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-envelope" aria-hidden="true"></i>
+						</span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate = "Password is required">
+						<input id="password" class="input100" type="password" name="password" placeholder="Password">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-lock" aria-hidden="true"></i>
+						</span>
+					</div>
+					
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn">
+							Login
+						</button>
+					</div>
+
+					
+
+					<div class="text-center p-t-136">
+						{% if error %}
+						<div class="alert alert-primary" role="alert">
+							{{error}}
+						</div>
+						{% endif %}
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	
+
+	
+<!--===============================================================================================-->	
+	<script src="{% static 'core/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'core/vendor/bootstrap/js/popper.js' %}"></script>
+	<script src="{% static 'core/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'core/vendor/select2/select2.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'core/vendor/tilt/tilt.jquery.min.js' %}"></script>
+	<script >
+		$('.js-tilt').tilt({
+			scale: 1.1
+		})
+	</script>
+<!--===============================================================================================-->
+	<script src="{% static 'core/js/main.js' %}"></script>
+
+</body>
+</html> 
