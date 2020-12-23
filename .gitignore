@@ -19,3 +19,4 @@ employee_dashboard/templates/robots.txt
 employee_dashboard/templates/static/*
 employee_dashboard/static/employee_dashboard/*
 employee_dashboard/templates/*
+*/static/*

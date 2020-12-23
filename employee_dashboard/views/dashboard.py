@@ -8,4 +8,4 @@ from django.contrib.auth.decorators import login_required
 @employee_required
 def serve_dashboard(request):
     
-    return render(request , 'employee_dashboard/index.html' )
+    return render(request , 'index.html' )
