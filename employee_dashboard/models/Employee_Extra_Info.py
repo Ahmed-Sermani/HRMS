@@ -2,7 +2,7 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from employee_dashboard.utils import media_uploader , positive_validator
 from datetime import date
-
+from .Section import Section
 class Employee_Extra_Info(models.Model):
        
 
@@ -16,6 +16,9 @@ class Employee_Extra_Info(models.Model):
 
     employee = models.OneToOneField('core.Employee' , on_delete=models.CASCADE)
 
+    nationality = models.CharField(max_length = 40, null = True)
+
+    job_title = models.CharField(max_length = 30, null = True)
     
     img = models.ImageField(
         upload_to = media_uploader('profile_imgs'),
@@ -55,12 +58,19 @@ class Employee_Extra_Info(models.Model):
         )
     
 
+    section = models.ForeignKey(Section ,models.CASCADE, null = True)
+
     birth_date = models.DateField()
 
     hiring_date = models.DateField()
 
     end_of_contract = models.DateField()
 
+    end_of_probation = models.DateField(null = True)
+
+    branch = models.CharField(max_length = 40, null = True)
+
+    sick_day_balance = models.IntegerField(null = True)
 
     def save(self, *args, **kwargs):
         if self.end_of_contract < self.hiring_date or self.birth_date > self.hiring_date:
@@ -83,6 +93,14 @@ class Employee_Extra_Info(models.Model):
     base_salary = models.FloatField(
         validators=[positive_validator]
         )
+    
+    GOSI_salary = models.FloatField(
+        validators=[positive_validator],
+        null= True
+        )
+    
+    available_annual_vacation_balance = models.IntegerField(null = True)
+
 
     #TODO: add this when the employer side is implemented 
     # job_applicant = models.ForeignKey('job_application')
@@ -135,8 +153,26 @@ class Employee_Extra_Info(models.Model):
     def years_of_hiring(self):
         return int(date.today().year - self.hiring_date.year)
    
+    @property
+    def period_of_employment(self):
+        return 'months ' +  str(int( self.hiring_date.month - date.today().month ))
 
+    @property
+    def available_vacation_balance_up_to_end_of_year(self):
+        from datetime import date
+        today = date.today()
+        f_date = date( today.year + 1, 1, 1)
+        delta = today - f_date
+        return str(self.available_annual_vacation_balance - delta.days) if delta.days < self.available_annual_vacation_balance else str(self.available_annual_vacation_balance)
 
+    @property
+    def sick_day_balance_up_to_end_of_the_year(self):
+        from datetime import date
+        today = date.today()
+        f_date = date( today.year + 1, 1, 1)
+        delta = today - f_date
+        return str(self.sick_day_balance - delta.days) if delta.days < self.sick_day_balance else str(self.sick_day_balance)
+        
 
     def __str__(self):
         return self.employee.user.email

@@ -3,10 +3,13 @@ import { Row, Col, Typography } from "antd";
 import { MailOutlined, PhoneOutlined, MobileOutlined} from '@ant-design/icons'
 const { Title, Paragraph } = Typography
 
+interface Props {
+    email: string,
+    mobile: string,
+    phone: string
+}
 
-
-const ContactInfo: React.FC = () => {
-
+const ContactInfo: React.FC<Props> = ({email, mobile, phone}: Props) => {
 
     return (
         <>
@@ -18,7 +21,7 @@ const ContactInfo: React.FC = () => {
                     <MailOutlined />
                 </Col>
                 <Col>
-                    <Paragraph copyable strong> ahmadsermani58@gmail.com </Paragraph>
+                    <Paragraph copyable strong> {email} </Paragraph>
                 </Col>
 
             </Row>
@@ -28,7 +31,7 @@ const ContactInfo: React.FC = () => {
                     <MobileOutlined />
                 </Col>
                 <Col>
-                    <Paragraph copyable strong> 0533981305 </Paragraph>
+                    <Paragraph copyable strong> {mobile} </Paragraph>
                 </Col>
 
             </Row>
@@ -38,7 +41,7 @@ const ContactInfo: React.FC = () => {
                     <PhoneOutlined />
                 </Col>
                 <Col>
-                    <Paragraph copyable strong> 88834885738894 </Paragraph>
+                    <Paragraph copyable strong> {phone} </Paragraph>
                 </Col>
 
             </Row>

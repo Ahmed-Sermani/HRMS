@@ -19,9 +19,6 @@ class Salary(models.Model):
         default = 'Bank'
     )
 
-    GOSI_salary = models.FloatField(
-        validators=[positive_validator]
-        )
 
     deductions = models.FloatField(
         validators=[positive_validator]

@@ -4,7 +4,15 @@ import Airplane from '../SVGs/Airplane'
 import Bandage from "../SVGs/Bandage";
 const { Title, Text } = Typography
 
-const TimeoffBalances: React.FC = () => {
+
+interface Props {
+    availableAnnualBalance: number,
+    upToEndOfTheYearBalance: number,
+    sickDayBalance: number,
+    upToEndOfYearSickDayBalance: number
+}
+
+const TimeoffBalances: React.FC<Props> = (props: Props) => {
     return (
         <Card
             title='Timeoff Balances'
@@ -44,7 +52,7 @@ const TimeoffBalances: React.FC = () => {
                     </Row>
                     <Row justify={'center'}>
                         <Text strong>
-                            11.393
+                            {props.availableAnnualBalance}
                         </Text>
                     </Row>
 
@@ -55,7 +63,7 @@ const TimeoffBalances: React.FC = () => {
                     </Row>
                     <Row justify={'center'}>
                         <Text strong>
-                            12.255
+                            {props.upToEndOfTheYearBalance}
                         </Text>
                     </Row>
 
@@ -96,7 +104,7 @@ const TimeoffBalances: React.FC = () => {
                     </Row>
                     <Row justify={'center'}>
                         <Text strong>
-                            30.000
+                            {props.sickDayBalance}
                         </Text>
                     </Row>
 
@@ -107,7 +115,7 @@ const TimeoffBalances: React.FC = () => {
                     </Row>
                     <Row justify={'center'}>
                         <Text strong>
-                            30.000
+                            {props.upToEndOfYearSickDayBalance}
                         </Text>
                     </Row>
                 </Col>

@@ -1,7 +1,21 @@
 import React from 'react'
 import { Card, Row, Col, Typography } from "antd";
 const { Text } = Typography
-const ProfessionalInfos: React.FC = () => {
+
+interface Props {
+    jobTitle: string,
+    workType: string,
+    directManager: string,
+    branch: string,
+    workLocation: string,
+    department: string,
+    section: string,
+    hiringDate: string,
+    periodOfEmployment: string,
+    endOfProbation: string
+
+}
+const ProfessionalInfos: React.FC<Props> = (props: Props) => {
     return(
         <Card title='Professional Info' type={'inner'}>
             <Row justify={'space-around'}>
@@ -9,25 +23,25 @@ const ProfessionalInfos: React.FC = () => {
                 <Row gutter={5} >
                     <Col>
                         <Text type={'secondary'}>
-                        Job Title :
-                </Text>
+                            Job Title :
+                        </Text>
                     </Col>
                     <Col>
                         <Text strong>
-                        Software Engineer
-                </Text>
+                            {props.jobTitle}
+                        </Text>
                     </Col>
                 </Row>
                 <Row gutter={5}>
                     <Col>
                         <Text type={'secondary'}>
-                        Work Type :
-                </Text>
+                            Work Type :
+                        </Text>
                     </Col>
                     <Col>
                         <Text strong>
-                            Full Time
-                </Text>
+                            {props.workType}
+                        </Text>
                     </Col>
                 </Row>
 
@@ -35,12 +49,12 @@ const ProfessionalInfos: React.FC = () => {
                     <Col>
                         <Text type={'secondary'}>
                             Direct Manager :
-                </Text>
+                        </Text>
                     </Col>
                     <Col>
                         <Text strong>
-                            Mohammad Sermani
-                </Text>
+                            {props.directManager}
+                        </Text>
                     </Col>
                 </Row>
                 </Col>
@@ -55,7 +69,7 @@ const ProfessionalInfos: React.FC = () => {
                     </Col>
                     <Col>
                         <Text strong>
-                            KSA Branch
+                            {props.branch}
                         </Text>
                     </Col>
                 </Row>
@@ -63,12 +77,12 @@ const ProfessionalInfos: React.FC = () => {
                     <Col>
                         <Text type={'secondary'}>
                             Work location :
-                </Text>
+                        </Text>
                     </Col>
                     <Col>
                         <Text strong>
-                            KSA Office
-                </Text>
+                            {props.workLocation}
+                        </Text>
                     </Col>
                 </Row>
 
@@ -76,12 +90,12 @@ const ProfessionalInfos: React.FC = () => {
                     <Col>
                         <Text type={'secondary'}>
                             Department :
-                </Text>
+                        </Text>
                     </Col>
                     <Col>
                         <Text strong>
-                            Technology
-                </Text>
+                            {props.department}
+                        </Text>
                     </Col>
                 </Row>
 
@@ -89,12 +103,12 @@ const ProfessionalInfos: React.FC = () => {
                     <Col>
                         <Text type={'secondary'}>
                             Section :
-                </Text>
+                        </Text>
                     </Col>
                     <Col>
                         <Text strong>
-                            Engineering
-                </Text>
+                            {props.section}
+                        </Text>
                     </Col>
                 </Row>
                 </Col>
@@ -104,25 +118,25 @@ const ProfessionalInfos: React.FC = () => {
                 <Row gutter={5}>
                     <Col>
                         <Text type={'secondary'}>
-                        Hiring Date :
-                </Text>
+                            Hiring Date :
+                        </Text>
                     </Col>
                     <Col>
                         <Text strong>
-                            Aug 04, 2020
-                </Text>
+                            {props.hiringDate}
+                        </Text>
                     </Col>
                 </Row>
                 <Row gutter={5}>
                     <Col>
                         <Text type={'secondary'}>
                             End of Probation :
-                </Text>
+                        </Text>
                     </Col>
                     <Col>
                         <Text strong>
-                            Oct 18, 1998
-                </Text>
+                            {props.endOfProbation}
+                        </Text>
                     </Col>
                 </Row>
 
@@ -130,17 +144,15 @@ const ProfessionalInfos: React.FC = () => {
                     <Col>
                         <Text type={'secondary'}>
                              Period of Employment :
-                </Text>
+                        </Text>
                     </Col>
                     <Col>
                         <Text strong>
-                            4 months
-                </Text>
+                            {props.periodOfEmployment}
+                        </Text>
                     </Col>
                 </Row>
                 </Col>
-                
-                
             </Row>
         </Card>
     )

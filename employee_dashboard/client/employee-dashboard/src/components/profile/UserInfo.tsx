@@ -4,10 +4,21 @@ import ContactInfo from './ContactInfo'
 import PersonalInfos from './PersonalInfos'
 import BasicInfo from './BasicInfo'
 import ProfileCardActions from './ProfileCardActions'
-
-const UserInfo: React.FC = () => {
-
-
+export interface Props {
+    img: string,
+    name: string,
+    employeeId: string,
+    gender: string,
+    birthDay: string,
+    maritalStatus: string,
+    nationality: string,
+    age: number,
+    nationalId: string,
+    email: string,
+    mobile: string,
+    phone: string
+}
+const UserInfo: React.FC<Props> = (props: Props) => {
 
 
     return (
@@ -16,17 +27,35 @@ const UserInfo: React.FC = () => {
             type={'inner'}
             cover={
                 <Image
-                    alt="example"
-                    src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                alt="profile_img"
+                    src={props.img}
                 />
             }
         >
 
-            <BasicInfo />
+            <BasicInfo
+                employeeId = {props.employeeId}
+                name = {props.name}
+            />
+
             <Divider />
-            <PersonalInfos />
+            <PersonalInfos
+                age = {props.age}
+                birthDay = {props.birthDay}
+                gender = {props.gender}
+                maritalStatus = {props.maritalStatus}
+                nationalId = {props.nationalId}
+                nationality = {props.nationality}
+            />
             <Divider />
-            <ContactInfo />
+
+            <ContactInfo
+                email = {props.email}
+                mobile = {props.mobile}
+                phone = {props.phone}
+            
+            />
+
             <Divider />
             <ProfileCardActions />
             
@@ -35,4 +64,4 @@ const UserInfo: React.FC = () => {
 }
 
 
-export default UserInfo
+export default React.memo(UserInfo)

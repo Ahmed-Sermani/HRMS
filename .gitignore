@@ -20,3 +20,4 @@ employee_dashboard/templates/static/*
 employee_dashboard/static/employee_dashboard/*
 employee_dashboard/templates/*
 */static/*
+employee_dashboard/client/employee-dashboard/.env

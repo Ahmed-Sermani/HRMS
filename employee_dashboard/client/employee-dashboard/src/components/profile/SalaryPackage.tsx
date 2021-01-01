@@ -1,7 +1,16 @@
 import React, { useState } from 'react'
 import { Card, Row, Col, Typography } from 'antd'
 const { Text } = Typography
-const SalaryPackage: React.FC = () => {
+
+
+interface Props {
+    basicSalary: string,
+    GOSISalary: string,
+    totalSalary: string
+}
+
+
+const SalaryPackage: React.FC<Props> = (props: Props) => {
     const [isBlurred, setBlurred] = useState<boolean>(true)
 
     const style = isBlurred ?
@@ -32,12 +41,12 @@ const SalaryPackage: React.FC = () => {
                         <Col>
                             <Text type={'secondary'} style={{ ...style }}>
                                 Basic Salary :
-                </Text>
+                            </Text>
                         </Col>
                         <Col>
                             <Text strong style={{ ...style }}>
-                                7000 SAR
-                </Text>
+                                {props.basicSalary}
+                            </Text>
                         </Col>
                     </Row>
 
@@ -52,8 +61,8 @@ const SalaryPackage: React.FC = () => {
                         </Col>
                         <Col>
                             <Text strong style={{ ...style }}>
-                                0.00 SAR
-                </Text>
+                                {props.GOSISalary}
+                            </Text>
                         </Col>
                     </Row>
 
@@ -65,12 +74,12 @@ const SalaryPackage: React.FC = () => {
                         <Col>
                             <Text type={'secondary'} style={{ ...style }}>
                                 Total Salary :
-                </Text>
+                            </Text>
                         </Col>
                         <Col>
                             <Text strong style={{ ...style }}>
-                                7000 SAR
-                </Text>
+                                {props.totalSalary}
+                            </Text>
                         </Col>
                     </Row>
 

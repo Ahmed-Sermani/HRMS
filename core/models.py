@@ -19,6 +19,8 @@ class User(AbstractUser):
     
     # phone number
     phone_number = models.CharField(max_length=15, blank=False)
+
+    office_phone = models.CharField(max_length=15, null = True)
     
     # date of birth
     date_of_birth = models.DateField(default=None, blank=True, null=True)
@@ -34,6 +36,10 @@ class User(AbstractUser):
     
     # require the email to be the unique identifier
     USERNAME_FIELD = 'email'
+
+    @property
+    def full_name(self):
+        return self.first_name + ' ' + self.last_name
 
     def __str__(self):
         return self.email

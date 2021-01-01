@@ -2,7 +2,17 @@ import React from 'react'
 import { Row, Col, Typography, } from "antd";
 const { Title, Text } = Typography
 
-const PersonalInfos: React.FC = () => {
+interface Props {
+    gender: string,
+    birthDay: string,
+    maritalStatus: string,
+    nationality: string,
+    age: number,
+    nationalId: string
+}
+
+
+const PersonalInfos: React.FC<Props> = (props:Props) => {
 
     return (
         <>
@@ -17,7 +27,7 @@ const PersonalInfos: React.FC = () => {
                     </Col>
                     <Col>
                         <Text strong>
-                            Male
+                            {props.gender}
                 </Text>
                     </Col>
                 </Row>
@@ -29,7 +39,7 @@ const PersonalInfos: React.FC = () => {
                     </Col>
                     <Col>
                         <Text strong>
-                            Oct 18, 1998
+                            {props.birthDay}
                 </Text>
                     </Col>
                 </Row>
@@ -42,7 +52,7 @@ const PersonalInfos: React.FC = () => {
                     </Col>
                     <Col>
                         <Text strong>
-                            Single
+                            {props.maritalStatus}
                 </Text>
                     </Col>
                 </Row>
@@ -58,7 +68,7 @@ const PersonalInfos: React.FC = () => {
                     </Col>
                     <Col>
                         <Text strong>
-                            Syrian
+                            {props.nationality}
                 </Text>
                     </Col>
                 </Row>
@@ -71,7 +81,7 @@ const PersonalInfos: React.FC = () => {
                     </Col>
                     <Col>
                         <Text strong>
-                            22 Years Old
+                            {props.age}
                 </Text>
                     </Col>
                 </Row>
@@ -84,12 +94,11 @@ const PersonalInfos: React.FC = () => {
                     </Col>
                     <Col>
                         <Text strong>
-                            2013149792
+                            {props.nationalId}
                 </Text>
                     </Col>
                 </Row>
             </Col>
-
         </Row>
         </>
         )

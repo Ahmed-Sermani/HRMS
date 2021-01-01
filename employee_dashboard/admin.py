@@ -10,7 +10,9 @@ from .models import Attendance ,\
    Bill,\
    Accountant,\
    Request,\
-   Task
+   Task,\
+   Department,\
+   Section
 
 
 # Register models to admin board
@@ -26,3 +28,5 @@ admin.site.register(Bill.Bill)
 admin.site.register(Accountant.Accountant)
 admin.site.register(Request.Request)
 admin.site.register(Task.Task)
+admin.site.register(Department.Department)
+admin.site.register(Section.Section)

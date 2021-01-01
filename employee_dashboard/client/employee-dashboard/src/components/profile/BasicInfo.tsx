@@ -1,7 +1,13 @@
 import React from 'react'
 import { Row, Col, Typography } from "antd"
 const { Text } = Typography
-const BasicInfo: React.FC = () => {
+
+interface Props {
+    name: string,
+    employeeId: string,
+}
+
+const BasicInfo: React.FC<Props> = ({name, employeeId}:Props) => {
 
     return(
          <>
@@ -13,7 +19,7 @@ const BasicInfo: React.FC = () => {
          </Col>
          <Col>
              <Text strong>
-                 Ahmad Sermani
+                {name}
              </Text>
          </Col>
      </Row>
@@ -25,7 +31,7 @@ const BasicInfo: React.FC = () => {
          </Col>
          <Col>
              <Text strong>
-                 1123112
+                 {employeeId}
              </Text>
          </Col>
      </Row>
@@ -34,4 +40,4 @@ const BasicInfo: React.FC = () => {
 
 }
 
-export default BasicInfo
+export default React.memo(BasicInfo)

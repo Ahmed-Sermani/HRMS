@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Row, Col, Modal, Button, Upload, Input } from "antd"
 import { UploadOutlined } from '@ant-design/icons'
 
@@ -13,6 +13,7 @@ const ProfileCardActions: React.FC = () => {
 
     const handleSubmit = () => {
         setConfirmLoading(true);
+        // TODO password reset here
         setTimeout(() => {
             setVisible(false);
             setConfirmLoading(false);
@@ -46,26 +47,20 @@ const ProfileCardActions: React.FC = () => {
                 confirmLoading={confirmLoading}
                 onCancel={handleCancel}
                 okText='Confirm'
-                
             >
                 <Row justify={'space-between'}>
                     <Input.Password 
                         placeholder="current password"
                         />
-                    
-                    
+                
                     <Input.Password 
                         placeholder="old password"
                         />
-                    
-
-                
             
                     <Input.Password
                         placeholder="confirm password"
                     />
                 
-                    
                 </Row>
             </Modal>
         </>

@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout, views
+views.PasswordChangeView
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseForbidden, JsonResponse, HttpResponseRedirect
 from django.contrib.sites.shortcuts import get_current_site
@@ -11,7 +12,13 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.conf import settings
 from django.contrib.auth.views import LoginView
-
+from rest_framework.views import APIView
+from django.utils.decorators import method_decorator
+from rest_framework.response import Response
+from rest_framework import authentication, permissions
+from rest_framework.permissions import IsAuthenticated
+from employee_dashboard.models.Employee_Extra_Info import Employee_Extra_Info
+from .models import Employee
 from .forms import *
 from .models import User, Employer, Employee, Asset, AssignedAsset
 from .tokens import account_activation_token
@@ -344,17 +351,47 @@ def employee_set_password(request, uid):
     
     return render (request, 'core/employee/set_password.html', {'set_password_form': form, 'user': user})
 
+class EmployeeView(APIView):
+    permission_classes  = [IsAuthenticated] 
+    @method_decorator([employee_required])
+    def get(self, request, *args, **kwargs):
+        img = Employee_Extra_Info.objects.get(employee__user__id = request.user.id).img
+        return JsonResponse(
+            {
+                'name': request.user.first_name + ' ' + request.user.last_name,
+                'position': request.user.position,
+                'phone_number': request.user.phone_number,
+                'img': '/media/'+ str(img)
+            }
+        )
 
 
+@login_required
+def logoutView(request):
+    logout(request)
+    return redirect('login')
 
 
+class PasswordResetView(APIView):
+    permission_classes  = [IsAuthenticated]
+    
+    @method_decorator([employee_required])
+    def post(self, request):
+        user = User.objects.get(id = request.user.id)[0]
 
+        result = {
+            'success': False,
+            'message': ''
+        }
+        raw_password = request.POST['password']
+        password_confirmation = request.POST['password-confirmation']
 
-
-
-
-
-
-
-
-
+        if raw_password != password_confirmation:
+            result['message'] = 'password not matching password confirmation'
+            return JsonResponse(result)
+        
+        if not user.check_password(raw_password):
+            result['message'] = 'password not correct'
+            return JsonResponse(result)
+        
+        user.set_password(request.POST['new-password'])
