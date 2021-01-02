@@ -92,11 +92,11 @@ const menu = (
 async function getBasicInfo(tokens: StateType){
     
 
-    const res = await fetch(process.env.REACT_APP_SERVER_URL + '/core/api/get_user_info/',
+    const res = await fetch(process.env.REACT_APP_SERVER_URL + 'core/api/get_user_info/',
     {
       method: 'GET',
       headers:{
-        Authorization: 'Bearer '+tokens.access,
+        Authorization: 'Bearer '+tokens.access_token,
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       }
@@ -104,6 +104,20 @@ async function getBasicInfo(tokens: StateType){
   )
   const result = await res.json()  
   return result
+
+
+//   const res = await fetch(process.env.REACT_APP_SERVER_URL + '/core/api/get_user_info/',
+//     {
+//       method: 'GET',
+//       headers:{
+//         Authorization: 'Bearer '+tokens.access,
+//         'Content-Type': 'application/json',
+//         'Accept': 'application/json'
+//       }
+//     }
+//   )
+//   const result = await res.json()  
+//   return result
     
 }
 

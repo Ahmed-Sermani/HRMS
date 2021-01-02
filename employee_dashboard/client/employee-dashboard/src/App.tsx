@@ -11,11 +11,12 @@ import { tokenContext } from "./context";
 
 export interface StateType {
   access: string,
-  refresh: string
+  refresh: string,
+  access_token: string
 }
 
 const App: React.FC = () => {
-  const [tokens, setTokens] = useState<StateType>({ access: '', refresh: '' })
+  const [tokens, setTokens] = useState<StateType>({ access: '', refresh: '' , access_token: ''})
 
   useEffect(() => {
     (async () => {
@@ -46,8 +47,7 @@ const App: React.FC = () => {
 }
 
 async function getTokens() {
-  //const res = await fetch(process.env.REACT_APP_API + '/get_token')
-  const res = await fetch(process.env.REACT_APP_API_AUTH + '/token/',
+  const res = await fetch(process.env.REACT_APP_API + '/get_token',
     {
       method: 'POST',
       body: JSON.stringify(

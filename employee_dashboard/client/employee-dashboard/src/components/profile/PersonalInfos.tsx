@@ -107,4 +107,4 @@ const PersonalInfos: React.FC<Props> = (props:Props) => {
 }
 
 
-export default PersonalInfos
+export default React.memo(PersonalInfos)

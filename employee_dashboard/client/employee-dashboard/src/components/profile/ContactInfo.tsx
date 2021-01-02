@@ -53,4 +53,4 @@ const ContactInfo: React.FC<Props> = ({email, mobile, phone}: Props) => {
     )
 }
 
-export default ContactInfo
+export default React.memo(ContactInfo)

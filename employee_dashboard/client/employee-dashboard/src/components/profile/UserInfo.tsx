@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Card, Image, Divider } from "antd";
 import ContactInfo from './ContactInfo'
 import PersonalInfos from './PersonalInfos'
@@ -20,14 +20,17 @@ export interface Props {
 }
 const UserInfo: React.FC<Props> = (props: Props) => {
 
-
+    
     return (
         <Card
             title="User Info"
             type={'inner'}
             cover={
                 <Image
-                alt="profile_img"
+                    alt="profile_img"
+                    style={{
+                        borderRadius: '20px'
+                    }}
                     src={props.img}
                 />
             }
@@ -64,4 +67,4 @@ const UserInfo: React.FC<Props> = (props: Props) => {
 }
 
 
-export default React.memo(UserInfo)
+export default UserInfo

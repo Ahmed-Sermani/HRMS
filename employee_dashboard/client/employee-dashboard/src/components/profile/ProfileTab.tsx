@@ -48,7 +48,7 @@ const ProfileTab: React.FC = () => {
             const result = await fetchData(tokens)
             setProfileInfo(result)
         })()
-    })
+    }, [tokens])
     return(
         <Row gutter={22}>
             <Col span={7}>
@@ -100,7 +100,7 @@ async function fetchData(tokens: any) {
     {
         method: 'GET',
         headers:{
-          Authorization: 'Bearer '+tokens.access,
+          Authorization: 'Bearer '+tokens.access_token,
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         }
