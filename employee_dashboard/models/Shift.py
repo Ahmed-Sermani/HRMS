@@ -11,14 +11,15 @@ class Shift(models.Model):
     
     
     """
-    this will be like '1234567'
+    this will be like '0123456'
+    0 = Saturday
     1 = Sunday
     2 = Monday
     3 = Tuesday
     4 = Wensday
     5 = Thursday
     6 = Friday
-    7 = Saturday
+    
 
     will validate this by field validator
     """

@@ -4,7 +4,7 @@ import { SiderProps } from "antd/lib/layout/Sider";
 import { Link } from "react-router-dom";
 
 import {
-    DesktopOutlined,
+    EnvironmentOutlined,
     UserOutlined,
     TeamOutlined,
     FileOutlined
@@ -27,8 +27,10 @@ const SideNav: React.FC<Props> = (props : Props) =>  {
                 Profile
                 </Link>
         </Menu.Item>
-        <Menu.Item key="2" icon={<DesktopOutlined />}>
-                Option 2
+        <Menu.Item key="2" icon={<EnvironmentOutlined />}>
+            <Link to='/employee/attendance'>
+                Attendance
+                </Link>
         </Menu.Item>
         <SubMenu key="sub1" icon={<UserOutlined />} title="User">
             <Menu.Item key="3">Tom</Menu.Item>

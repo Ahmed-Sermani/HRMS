@@ -1,6 +1,8 @@
 import React from 'react';
 import { Tabs, Layout } from 'antd';
 import ProfileTab from './ProfileTab'
+import BankAccounts from './BankAccounts'
+import Assets from './Assets'
 const { TabPane } = Tabs
 const { Content } = Layout
 
@@ -20,11 +22,11 @@ const Profile: React.FC = () => {
                 <TabPane tab="Profile" key="1">
                     <ProfileTab />
                 </TabPane>
-                <TabPane tab="Tab 2" key="2">
-                    Content of Tab Pane 2
+                <TabPane tab="Bank Accounts" key="2">
+                    <BankAccounts />
             </TabPane>
-                <TabPane tab="Tab 3" key="3">
-                    Content of Tab Pane 3
+                <TabPane tab="Assets" key="3">
+                    <Assets />
             </TabPane>
             </Tabs>
         </Content>

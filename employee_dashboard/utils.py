@@ -34,7 +34,7 @@ def positive_validator(value):
 
 
 def days_of_week_string_validator(value):
-    days_of_week = '1234567'
+    days_of_week = '0123456'
     if not value.isdecimal():
         raise ValidationError(
             "invalid days_of_week the allowed charactor is {0}".format(days_of_week))
@@ -69,20 +69,20 @@ def validate_latitude(value):
 def validate_polygon(value):
     import json
     try:
-        polygon = json.loads
+        polygon = json.loads(value)
     except json.JSONDecodeError:
         raise ValidationError('Please provide valid JSON data for polygon')
     try:
-        if isinstance(polygon.points, list):
-            for point in polygon.points:
-                if not (isinstance(point, list) and len(point) == 2):
+        if isinstance(polygon, list):
+            for point in polygon:
+                if not (isinstance(point, dict) and len(point) == 2):
                     raise ValidationError()
-                validate_longitude(point[1])
-                validate_latitude(point[0])
+                validate_longitude(point['lng'])
+                validate_latitude(point['lat'])
         else:
             raise ValidationError()
     except:
         raise ValidationError("""please provide correct data structure for polygon note
                                  that it has to contain attribute [points] which is
-                                 array of points where each point is array of length 2 with
-                                 string data that convertable to float and valid [long,lat]""")
+                                 array of points where each point is dict consisting 
+                                 of two fields lng and lat""")

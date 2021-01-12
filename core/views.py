@@ -361,7 +361,7 @@ class EmployeeView(APIView):
                 'name': request.user.first_name + ' ' + request.user.last_name,
                 'position': request.user.position,
                 'phone_number': request.user.phone_number,
-                'img': '/media/'+ str(img)
+                'img': 'media/'+ str(img)
             }
         )
 
@@ -377,21 +377,26 @@ class PasswordResetView(APIView):
     
     @method_decorator([employee_required])
     def post(self, request):
-        user = User.objects.get(id = request.user.id)[0]
+        user = User.objects.get(id = request.user.id)
 
         result = {
             'success': False,
             'message': ''
         }
-        raw_password = request.POST['password']
-        password_confirmation = request.POST['password-confirmation']
+        raw_password = request.data['password']
+        password_confirmation = request.data['password-confirmation']
+        new_password = request.data['new-password']
 
-        if raw_password != password_confirmation:
-            result['message'] = 'password not matching password confirmation'
+        if new_password != password_confirmation:
+            result['message'] = 'the password does not match the password confirmation'
             return JsonResponse(result)
         
         if not user.check_password(raw_password):
             result['message'] = 'password not correct'
             return JsonResponse(result)
-        
-        user.set_password(request.POST['new-password'])
+        user.set_password(request.data['new-password'])
+        result['success'] = True
+        result['message'] = 'Succeeded'
+        user.save()
+        login(request, user)
+        return JsonResponse(result)

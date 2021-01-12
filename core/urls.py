@@ -1,6 +1,6 @@
 from django.urls import path , include
 from django.contrib.auth import views as auth_views
-from core.views import LoginManager, EmployeeView, logoutView
+from core.views import LoginManager, EmployeeView, logoutView, PasswordResetView 
 
 from . import views as core_views
 
@@ -27,7 +27,7 @@ urlpatterns = [
     path('employee/dashboard/main/' , include(('employee_dashboard.urls' , 'employee_dashboard'), namespace='employee_dashboard') ),
     
     path('core/api/get_user_info/', EmployeeView.as_view(), name='get_user_info'),
-    path('core/api/password_reset', )
+    path('core/api/password_reset/', PasswordResetView.as_view(), name='reset_password'),
 
     # all users
     path('login/', LoginManager.as_view(), name='login'),

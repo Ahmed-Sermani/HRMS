@@ -12,7 +12,8 @@ from .models import Attendance ,\
    Request,\
    Task,\
    Department,\
-   Section
+   Section,\
+   Bank_Account
 
 
 # Register models to admin board
@@ -30,3 +31,4 @@ admin.site.register(Request.Request)
 admin.site.register(Task.Task)
 admin.site.register(Department.Department)
 admin.site.register(Section.Section)
+admin.site.register(Bank_Account.Bank_Account)

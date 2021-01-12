@@ -21,3 +21,5 @@ employee_dashboard/static/employee_dashboard/*
 employee_dashboard/templates/*
 */static/*
 employee_dashboard/client/employee-dashboard/.env
+employee_dashboard/client/employee-dashboard/.env.development
+employee_dashboard/client/employee-dashboard/.env.production

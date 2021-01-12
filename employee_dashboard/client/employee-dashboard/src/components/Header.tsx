@@ -19,7 +19,7 @@ const AppHeader: React.FC =  () => {
            setImg(process.env.REACT_APP_SERVER_URL +  result.img)
     })()
        
-    },[tokens])
+    },[tokens   ])
     
     return (
         <Header hasSider={true} style={{
@@ -89,14 +89,13 @@ const menu = (
 );
 
 
-async function getBasicInfo(tokens: StateType){
+async function getBasicInfo(tokens: StateType | undefined){
     
-
     const res = await fetch(process.env.REACT_APP_SERVER_URL + 'core/api/get_user_info/',
     {
       method: 'GET',
       headers:{
-        Authorization: 'Bearer '+tokens.access_token,
+        Authorization: 'Bearer '+tokens?.access,
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       }
@@ -106,18 +105,6 @@ async function getBasicInfo(tokens: StateType){
   return result
 
 
-//   const res = await fetch(process.env.REACT_APP_SERVER_URL + '/core/api/get_user_info/',
-//     {
-//       method: 'GET',
-//       headers:{
-//         Authorization: 'Bearer '+tokens.access,
-//         'Content-Type': 'application/json',
-//         'Accept': 'application/json'
-//       }
-//     }
-//   )
-//   const result = await res.json()  
-//   return result
     
 }
 

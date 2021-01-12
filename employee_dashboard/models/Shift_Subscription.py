@@ -8,7 +8,7 @@ class Shift_Subscription(models.Model):
         on_delete=models.CASCADE
     )
 
-    employee_extra_info = models.ForeignKey(
+    employee_extra_info = models.OneToOneField(
         'Employee_Extra_Info',
         on_delete=models.CASCADE
     )

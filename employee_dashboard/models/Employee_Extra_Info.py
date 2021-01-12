@@ -162,7 +162,7 @@ class Employee_Extra_Info(models.Model):
         from datetime import date
         today = date.today()
         f_date = date( today.year + 1, 1, 1)
-        delta = today - f_date
+        delta = f_date - today
         return str(self.available_annual_vacation_balance - delta.days) if delta.days < self.available_annual_vacation_balance else str(self.available_annual_vacation_balance)
 
     @property
@@ -170,9 +170,9 @@ class Employee_Extra_Info(models.Model):
         from datetime import date
         today = date.today()
         f_date = date( today.year + 1, 1, 1)
-        delta = today - f_date
+        delta = f_date - today
         return str(self.sick_day_balance - delta.days) if delta.days < self.sick_day_balance else str(self.sick_day_balance)
-        
+
 
     def __str__(self):
         return self.employee.user.email

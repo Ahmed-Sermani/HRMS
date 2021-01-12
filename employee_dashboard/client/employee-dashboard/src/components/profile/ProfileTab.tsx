@@ -100,7 +100,7 @@ async function fetchData(tokens: any) {
     {
         method: 'GET',
         headers:{
-          Authorization: 'Bearer '+tokens.access_token,
+          Authorization: 'Bearer '+tokens.access,
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         }

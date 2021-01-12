@@ -78,13 +78,14 @@ class Employee(models.Model):
 
 # company assets, owned by the employer
 class Asset(models.Model):
-    asset = models.CharField(max_length=50, blank=False, primary_key=True)
+    asset = models.CharField(max_length=50, blank=False)
     employer = models.ForeignKey(Employer, on_delete=models.CASCADE)
     description = models.CharField(max_length=200, blank=False)
+    title = models.CharField(max_length = 50, blank = False, null= True)
 
 # track which asset is owned by which employee
 class AssignedAsset(models.Model):
-    asset = models.OneToOneField(Asset, on_delete=models.CASCADE)
+    asset = models.OneToOneField(Asset,to_field='id', on_delete=models.CASCADE)
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
 
 

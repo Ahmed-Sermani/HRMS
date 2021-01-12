@@ -4,19 +4,19 @@ import './index.css';
 import { Layout } from 'antd';
 import SideNav from './components/SideNav';
 import Profile from './components/profile/Profile'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import Attendance from './components/attendance/Attendance'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import AppHeader from './components/Header'
 import { tokenContext } from "./context";
 
 
 export interface StateType {
   access: string,
-  refresh: string,
-  access_token: string
+  refresh: string
 }
 
 const App: React.FC = () => {
-  const [tokens, setTokens] = useState<StateType>({ access: '', refresh: '' , access_token: ''})
+  const [tokens, setTokens] = useState<StateType>()
 
   useEffect(() => {
     (async () => {
@@ -24,23 +24,28 @@ const App: React.FC = () => {
       setTokens(result)
     })()
   }, [])
-  
+
 
   return (
     <Router>
       <tokenContext.Provider value={tokens}>
-      <Layout style={{ minHeight: '100vh' }}>
-
+        {tokens && <Layout style={{ minHeight: '100vh' }}>
         <SideNav />
-
         <Layout className="site-layout">
           <AppHeader />
-          <Route path='/employee/profile'>
-            <Profile />
-          </Route>
+          <Switch>
+            <Route path='/employee/profile'>
+              <Profile />
+            </Route>
+            <Route path='/employee/attendance'>
+              <Attendance />
+            </Route>
+          </Switch>
 
         </Layout>
       </Layout>
+        }
+        
       </tokenContext.Provider>
     </Router>
   )
@@ -49,21 +54,20 @@ const App: React.FC = () => {
 async function getTokens() {
   const res = await fetch(process.env.REACT_APP_API + '/get_token',
     {
-      method: 'POST',
-      body: JSON.stringify(
-        {
-          email: "test@test.com",
-          password: "a1h2m3d4"
-        }
-      ),
+      method: 'GET',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
       }
     }
   )
   const result = await res.json()
+  console.log(result)
   return result
+
 }
+
+
 
 
 

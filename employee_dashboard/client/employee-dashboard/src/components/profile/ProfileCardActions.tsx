@@ -80,7 +80,7 @@ const ProfileCardActions: React.FC = () => {
                         name = 'profile-image'
                         action = {process.env.REACT_APP_API + '/upload_image'}
                         headers= {{
-                            Authorization: 'Bearer ' + tokens.access_token
+                            Authorization: 'Bearer ' + tokens?.access
                         }}
                         onChange = {fileUploadOnChangeHandler}
                     >
@@ -132,7 +132,7 @@ async function sendPasswordResetRequest(password: any, passwordConfirmation: any
         {
             method: 'POST',
             headers: {
-                Authorization: 'Bearer ' + tokens.access_token,
+                Authorization: 'Bearer ' + tokens.access,
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             },

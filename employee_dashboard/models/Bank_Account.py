@@ -8,4 +8,4 @@ class Bank_Account(models.Model):
     card_number = models.CharField(max_length = 30)
 
     def __str__(self):
-        self.id
+        return str(self.bank) 

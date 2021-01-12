@@ -4,13 +4,15 @@ from ..utils import validate_longitude, validate_latitude
 
 from employee_dashboard.managers.Attendance_Manager import Attendance_Manager
 
+def default_date():
+    return timezone.localdate(timezone.now())
 
 class Attendance(models.Model):
 
     # overwrites the default manager
     objects = Attendance_Manager()
-
-    attendance_date = models.DateField(default=timezone.datetime.now)
+    
+    attendance_date = models.DateField(default=default_date)
 
     employee_extra_info = models.ForeignKey(
         'Employee_Extra_Info',
@@ -37,13 +39,13 @@ class Attendance(models.Model):
         null=True
     )
 
-    longitude = models.CharField(
+    longitude = models.FloatField(
         max_length=150,
         validators=[validate_longitude],
         default = '0'
     )
 
-    latitude = models.CharField(
+    latitude = models.FloatField(
         max_length=150,
         validators=[validate_latitude],
         default = '0'
@@ -51,3 +53,4 @@ class Attendance(models.Model):
 
     def __str__(self):
         return str(self.id)
+
