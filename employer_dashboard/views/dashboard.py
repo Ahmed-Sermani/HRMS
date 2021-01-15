@@ -40,7 +40,11 @@ class EmployeeAddUpdateView(views.APIView):
         from dateutil.parser import parse
         from django.core.exceptions import ValidationError
         from employee_dashboard.models.Section import Section
-
+        from django.contrib.sites.shortcuts import get_current_site
+        from django.template.loader import render_to_string
+        from django.utils.http import urlsafe_base64_encode
+        from django.utils.encoding import force_bytes
+        from core.tokens import account_activation_token
         data = request.data
         user = User()
         user.email = data['email']
@@ -82,7 +86,7 @@ class EmployeeAddUpdateView(views.APIView):
         except Section.DoesNotExist:
             return Response({
                 'success': False,
-                'message': f'The Section {} Does Not Exist'.format(data['section'])
+                'message': 'The Section {} Does Not Exist'.format(data['section'])
             })
 
         employee_extra.birth_date = data['date_of_birth']
@@ -117,7 +121,17 @@ class EmployeeAddUpdateView(views.APIView):
                 'message': 'Email or Username Already Exist'
             })
         
-    
+        current_site = get_current_site(request)
+        subject = 'Activate Employee Account'
+        message = render_to_string('core/account_activation_email.html', {
+            'user': employee,
+            'domain': current_site.domain,
+            'uid': urlsafe_base64_encode(force_bytes(employee.pk)),
+            'token': account_activation_token.make_token(user)
+        })
+
+        user.email_user(subject, message, from_email='hrms.system@gmail.com')
+
         return Response({'success': True})
 
 

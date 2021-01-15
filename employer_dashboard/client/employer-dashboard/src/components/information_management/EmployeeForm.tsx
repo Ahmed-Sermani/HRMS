@@ -94,7 +94,7 @@ const EmployeeFrom = () => {
             notification.open({
                 type:'success',
                 message: 'success',
-                description: 'The Employee Has Been Added Successfully'
+                description: 'The Employee Has Been Added Successfully and Activation Email Has been Sent'
             })
             form.resetFields()
         }
@@ -105,12 +105,6 @@ const EmployeeFrom = () => {
                 description: result.message
             })
         }
-
-
-
-
-
-
 
 
 
