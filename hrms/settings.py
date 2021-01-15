@@ -30,6 +30,8 @@ INSTALLED_APPS = [
 
     'employee_dashboard',
 
+    'employer_dashboard',
+
     'rest_framework',
 
     'corsheaders'
@@ -43,12 +45,13 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.common.CommonMiddleware'
+    'django.middleware.clickjacking.XFrameOptionsMiddleware'
 ]
+
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000"
 ]
+
 ROOT_URLCONF = 'hrms.urls'
 
 TEMPLATES = [

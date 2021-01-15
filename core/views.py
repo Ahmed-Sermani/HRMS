@@ -99,7 +99,7 @@ def employee_dashboard(request):
 @login_required
 def login_redirect(request):
     if request.user.is_employer:
-        return redirect('core:employer_dashboard')
+        return redirect('employer_dashboard:employer_dashboard')
     return redirect('employee_dashboard:employee_dashboard')
     
 

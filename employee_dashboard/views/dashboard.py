@@ -21,7 +21,6 @@ from core import models
 @login_required
 @employee_required
 def serve_dashboard(request):
-    print(request.user.id)
     return render(request , 'index.html' )
 
 @csrf_exempt
