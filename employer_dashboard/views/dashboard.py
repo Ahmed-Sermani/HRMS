@@ -11,7 +11,11 @@ from django.http import JsonResponse
 from django.utils.decorators import method_decorator
 from django.db.utils import IntegrityError
 from django.db import transaction
-
+from rest_framework import generics
+from rest_framework.viewsets import ModelViewSet
+from rest_framework.pagination import PageNumberPagination
+from employee_dashboard.models.Employee_Extra_Info import Employee_Extra_Info
+from employee_dashboard.serializers.EmployeeExtraInfoSerializer import EmployeeExtraInfoSerializer
 @login_required
 @employer_required
 def serve_dashboard(request):
@@ -135,4 +139,25 @@ class EmployeeAddUpdateView(views.APIView):
         return Response({'success': True})
 
 
-        
+class StandardResultsSetPagination(PageNumberPagination):
+    page_size = 5
+    max_page_size = 5
+
+class EmployeeListView(generics.ListAPIView):
+     
+    serializer_class = EmployeeExtraInfoSerializer
+    pagination_class = StandardResultsSetPagination
+    permission_classes = [permissions.IsAuthenticated]
+
+    @method_decorator([employer_required])
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+    
+    def get_queryset(self):
+        queryset = Employee_Extra_Info.objects.all()
+        if self.request.data.get('search_name'):
+            queryset = queryset.filter(employee__user__first_name__icontains = self.request.data.get('search_name'))
+        if self.request.data.get('id'):
+            queryset = queryset.filter(pk = self.request.data.get('id'))
+        return queryset
+    

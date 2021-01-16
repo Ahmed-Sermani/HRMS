@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Layout, Menu } from "antd";
 import { SiderProps } from "antd/lib/layout/Sider";
+import { Link } from "react-router-dom";
 
 import {
-    EnvironmentOutlined,
+    UnorderedListOutlined,
     UserOutlined,
     TeamOutlined,
-    FileOutlined
+    FileOutlined,
+    InfoCircleOutlined
 } from '@ant-design/icons';
 const { SubMenu } = Menu;
 const { Sider } = Layout
@@ -21,11 +23,17 @@ const SideNav: React.FC<Props> = (props : Props) =>  {
     <Sider collapsible collapsed={collapsed} onCollapse={setCollapsed.bind(null, !collapsed)}>
         <div className='logo'/>
         <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-        <Menu.Item key="1" icon={<UserOutlined />}>
-                Profile
+        <Menu.Item key="1" icon={<InfoCircleOutlined />}>
+            
+            <Link to='/information_management'>
+                Information Management
+            </Link>
+            
         </Menu.Item>
-        <Menu.Item key="2" icon={<EnvironmentOutlined />}>
-                Attendance
+        <Menu.Item key="2" icon={<UnorderedListOutlined />}>
+            <Link to='/employee_list_and_actions'>
+                Employees
+            </Link>
         </Menu.Item>
         <SubMenu key="sub1" icon={<UserOutlined />} title="User">
             <Menu.Item key="3">Tom</Menu.Item>

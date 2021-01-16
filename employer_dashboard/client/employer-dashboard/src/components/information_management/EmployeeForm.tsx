@@ -75,8 +75,6 @@ const EmployeeFrom = () => {
         parsed_data.phone_number = parsed_data.prefix + parsed_data.phone_number
         delete parsed_data.prefix
         
-        console.log(parsed_data);
-        
         const res  = await fetch(process.env.REACT_APP_API + '/add_update_employee', {
             method: 'POST',
             body: JSON.stringify(parsed_data),
