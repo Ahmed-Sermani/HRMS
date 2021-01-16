@@ -177,5 +177,38 @@ class EmployeeViewSet(ModelViewSet):
     serializer_class = EmployeeExtraInfoSerializer
     permission_classes = [permissions.IsAuthenticated, IsEmployer]
 
+from core.models import Asset, AssignedAsset, Employee
+from employee_dashboard.serializers.AssetSerializer import AssetSerializer
+from rest_framework import mixins
+class AssetsViewSet(ModelViewSet):
+    queryset = Asset.objects.all()
+    serializer_class = AssetSerializer
+    permission_classes = [permissions.IsAuthenticated, IsEmployer]
+
+    def create(self, request, *args, **kwargs):
+        asset = Asset()
+        asset.asset = request.data['asset']
+        asset.title = request.data['title']
+        asset.description = request.data['description']
+        asset.employer = request.user.employer
+
+        try:
+            emp = Employee.objects.get(user__email = request.data['assigned'])
+        except Employee.DoesNotExist:
+            return Response({
+                'success': False,
+                'message': 'No Such Employee To Assgin The Asset'
+            })
+        assigned_asset = AssignedAsset()
+        assigned_asset.asset = asset
+        assigned_asset.employee = emp
+
+        with transaction.atomic():
+            asset.save()
+            assigned_asset.save()
+        
+        return Response({'success': True})
     
-    
+    def perform_update(self, serializer, **kwargs):
+        print('ssss')
+

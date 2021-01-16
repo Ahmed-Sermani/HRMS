@@ -1,6 +1,7 @@
 import React from 'react'
 import { Layout, Tabs } from 'antd'
 import EmployeeForm from "./EmployeeForm";
+import Assets from "./Assets";
 const { Content } = Layout
 const { TabPane } = Tabs
 
@@ -22,12 +23,10 @@ const ManagementBase: React.FC = () => {
                 <TabPane tab="Add Employee" key="1">
                     <EmployeeForm />
                 </TabPane>
-                <TabPane tab="Bank Accounts" key="2">
-                    f
-            </TabPane>
+                
                 <TabPane tab="Assets" key="3">
-                    asd
-            </TabPane>
+                    <Assets />
+                </TabPane>
             </Tabs>
         </Content>
     )
