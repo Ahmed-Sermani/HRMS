@@ -6,6 +6,7 @@ class EmployeeExtraInfoSerializer(ModelSerializer):
     class Meta:
         model = Employee_Extra_Info
         fields = '__all__'
+        dept = 1
     
     def get_full_name(self, obj):
         return obj.employee.user.full_name

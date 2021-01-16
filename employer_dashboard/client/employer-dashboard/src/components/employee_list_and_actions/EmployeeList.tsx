@@ -1,7 +1,24 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Row, Col, Card, Image, Input, Button, Tooltip, Space, Typography } from "antd";
-import { EditOutlined, EllipsisOutlined, SettingOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
+import { 
+    Row,
+    Col, 
+    Card, 
+    Image, 
+    Input, 
+    Button, 
+    Tooltip, 
+    Space, 
+    Typography, 
+    Modal, 
+    Form,
+    Select,
+    DatePicker,
+    notification
+} from "antd";
+
+import { EditOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { tokenContext } from "../../context";
+const { Option } = Select
 const { Search } = Input;
 const { Text } = Typography
 const { Meta } = Card;
@@ -52,7 +69,7 @@ const EmployeeList: React.FC = () => {
                 'Accept': 'application/json'
             },
             body: JSON.stringify(body),
-            
+
         })
         return await res.json()
 
@@ -184,7 +201,7 @@ const EmployeeCard: React.FC<CardProps> = ({ name, title, img, id }: CardProps) 
                 />
             }
             actions={[
-                <EditOutlined key="edit" />,
+                <CardModalForm id={id} />,
             ]}
 
         >
@@ -193,6 +210,235 @@ const EmployeeCard: React.FC<CardProps> = ({ name, title, img, id }: CardProps) 
 
         </Card>
     )
+}
+
+interface Values {
+    title: string;
+    description: string;
+    modifier: string;
+}
+
+interface CollectionCreateFormProps {
+    visible: boolean;
+    onCreate: (values: Values) => void;
+    onCancel: () => void;
+    id: number
+}
+
+
+const CollectionCreateForm: React.FC<CollectionCreateFormProps> = ({
+    visible,
+    onCreate,
+    onCancel,
+    id
+}) => {
+    const [form] = Form.useForm();
+    const [loading, setLoading] = useState<boolean>(false)
+    const tokens = useContext(tokenContext)
+    const [currentData, setCurrentData] = useState<any>()
+
+    useEffect(() => {
+        (async() => {
+            const res = await fetch(process.env.REACT_APP_API + `/employee_viewset/${id}`, {
+                method: 'GET',
+                headers: {
+                    Authorization: 'Bearer ' + tokens?.access,
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+    
+            })
+
+            setCurrentData(await res.json())
+             
+        })()
+    }, [id])
+    
+
+    return (
+        <Modal
+            visible={visible}
+            title="Edit Employee Info"
+            okText="Edit"
+            cancelText="Cancel"
+            onCancel={onCancel}
+            confirmLoading={loading}
+            onOk={() => {
+                setLoading(true)
+                form
+                    .validateFields()
+                    .then(values => {
+                        form.resetFields();
+                        values.setLoading = setLoading
+                        onCreate(values);
+                    })
+                    .catch(info => {
+                        setLoading(false)
+                    });
+            }}
+        >
+            {currentData && 
+            <Form
+                form={form}
+                layout="vertical"
+                name="employee"
+                initialValues={{ 
+                    job_title: currentData.job_title,
+                    work_type: currentData.work_type,
+                    marital_status: currentData.marital_status,
+                    work_location: currentData.work_location,
+                    branch: currentData.branch,
+                    base_salary: currentData.base_salary,
+                    GOSI_salary: currentData.GOSI_salary,
+                    
+                 }}
+            >
+
+
+            <Form.Item
+                name="job_title"
+                label="Job Title"
+                rules={[
+                    { required: true, message: 'Please Input The Job Title' },
+                ]}
+               
+            >
+                <Input />
+            </Form.Item>
+
+
+            <Form.Item
+                name="work_type"
+                label="Work Type"
+                rules={[
+                    { required: true, message: 'Please Input The Work Type' },
+                ]}
+            >
+                <Select>
+                    <Select.Option value="Full Time">Full Time</Select.Option>
+                    <Select.Option value="Part Time">Part Time</Select.Option>
+                    <Select.Option value="Remotely">Remotely</Select.Option>
+                </Select>
+            </Form.Item>
+
+
+            <Form.Item
+                name="marital_status"
+                label="Marital Status"
+                rules={[
+                    { required: true, message: 'Please Input The Marital Status' },
+                ]}
+            >
+                <Select>
+                    <Select.Option value="Single">Single</Select.Option>
+                    <Select.Option value="Married">Married</Select.Option>
+                </Select>
+            </Form.Item>
+
+
+            <Form.Item
+                name="work_location"
+                label="Work location"
+                rules={[
+                    { required: true, message: 'Please Input The Work location' },
+                ]}
+            >
+                <Input />
+            </Form.Item>
+
+            <Form.Item
+                name="branch"
+                label="Branch"
+                rules={[
+                    { required: true, message: 'Please Input The Branch' },
+                ]}
+            >
+                <Input />
+            </Form.Item>
+
+            <Form.Item
+                name="base_salary"
+                label="Base Salary"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please input the Base Salary',
+                    }
+                ]}
+            >
+                <Input />
+            </Form.Item>
+
+            <Form.Item
+                name="GOSI_salary"
+                label="GOSI Salary"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please input the GOSI Salary',
+                    }
+                ]}
+            >
+                <Input />
+            </Form.Item>
+            </Form>}
+        </Modal>
+    );
+};
+
+const CardModalForm: React.FC<{ id: number }> = ({ id }) => {
+
+    const [visible, setVisible] = useState(false);
+    const tokens = useContext(tokenContext)
+
+    const onCreate =  async(values: any) => {
+        try{
+             const res = await fetch(process.env.REACT_APP_API + `/employee_viewset/${id}/`, {
+                method: 'PATCH',
+                headers: {
+                    Authorization: 'Bearer ' + tokens?.access,
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(values)
+    
+            })
+            const result = await res.json()
+            if(result.hasOwnProperty('success') && !result.result){
+                notification.error({message: result.message})
+            }
+            notification.success({message:'Successfully Updated'})
+
+        }catch(e){
+            notification.error({message: 'Error Encountered While Updating'})
+        }
+        console.log(values);
+        
+        values.setLoading(false)
+        setVisible(false);
+    };
+
+
+    return (
+        <>
+            <Button
+                type="text"
+                onClick={() => {
+                    setVisible(true);
+                }}
+            >
+                <EditOutlined key="edit" />
+            </Button>
+            <CollectionCreateForm
+                visible={visible}
+                onCreate={onCreate}
+                onCancel={() => {
+                    setVisible(false);
+                }}
+                id={id}
+            />
+        </>
+    );
 }
 
 

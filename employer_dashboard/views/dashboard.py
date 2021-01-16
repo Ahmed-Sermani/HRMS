@@ -165,4 +165,17 @@ class EmployeeListView(generics.ListAPIView):
         if self.request.data.get('id'):
             queryset = queryset.filter(pk = self.request.data.get('id'))
         return queryset
+
+class IsEmployer(permissions.BasePermission):
+    
+    def has_permission(self, request, view):
+        return bool(request.user and request.user.is_employer)
+
+
+class EmployeeViewSet(ModelViewSet):
+    queryset = Employee_Extra_Info.objects.all()
+    serializer_class = EmployeeExtraInfoSerializer
+    permission_classes = [permissions.IsAuthenticated, IsEmployer]
+
+    
     
