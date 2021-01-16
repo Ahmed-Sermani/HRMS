@@ -153,6 +153,11 @@ class EmployeeListView(generics.ListAPIView):
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
     
+    @method_decorator([employer_required])
+    def post(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+    
+    
     def get_queryset(self):
         queryset = Employee_Extra_Info.objects.all()
         if self.request.data.get('search_name'):

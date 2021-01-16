@@ -1,116 +1,161 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Row, Col, Card, Image, Input, Button, Tooltip, Space, Typography  } from "antd";
+import { Row, Col, Card, Image, Input, Button, Tooltip, Space, Typography } from "antd";
 import { EditOutlined, EllipsisOutlined, SettingOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { tokenContext } from "../../context";
 const { Search } = Input;
 const { Text } = Typography
-const { Meta } = Card; 
+const { Meta } = Card;
 
 const EmployeeList: React.FC = () => {
     const tokens = useContext(tokenContext)
-    const [ components, setComponents] = useState<any>([])
-    const [pagination, setPagination] = useState({next: null, previous: null})
+    const [components, setComponents] = useState<any>([])
+    const [pagination, setPagination] = useState({ next: null, previous: null })
     useEffect(() => {
         (async () => {
             const result = await getListEmployee(process.env.REACT_APP_API + '/employees_list')
 
-            
-            if (result.hasOwnProperty('results') && Array.isArray(result.results)){
-            let temp = [...result.results]
-            let arrays = [], size = 5;
-            
-            while (temp.length > 0)
-                arrays.push(temp.splice(0, size));
-            let Rows = arrays.map((arr: Array<any>) => {
-                const Cols = arr.map((value: any, index: any) => {
+
+            if (result.hasOwnProperty('results') && Array.isArray(result.results)) {
+                let temp = [...result.results]
+                let arrays = [], size = 5;
+
+                while (temp.length > 0)
+                    arrays.push(temp.splice(0, size));
+                let Rows = arrays.map((arr: Array<any>) => {
+                    const Cols = arr.map((value: any, index: any) => {
+                        return (
+                            <Col><EmployeeCard id={value.id} name={value.full_name} title={value.job_title} img={value.img} key={index} /></Col>
+                        )
+                    })
+
+
                     return (
-                        <Col><EmployeeCard id={value.id} name={value.full_name} title={value.job_title} img={value.img} key={index}/></Col>
+                        <Row gutter={[50, 20]}>{Cols}</Row>
                     )
                 })
-                
-                
-                return (
-                    <Row gutter={[50,20]}>{Cols}</Row>
-                )
-            })
 
-            setComponents(Rows)
-            setPagination({next:result.next, previous: result.previous})
-        }
-            
+                setComponents(Rows)
+                setPagination({ next: result.next, previous: result.previous })
+            }
+
         })()
-        
+
     }, [])
 
 
     const getListEmployee = async (path: string, body?: object) => {
-        const res  = await fetch(path, {
-            method: 'GET',
+        const res = await fetch(path, {
+            method: 'POST',
             headers: {
                 Authorization: 'Bearer ' + tokens?.access,
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             },
-            body: JSON.stringify(body)
+            body: JSON.stringify(body),
+            
         })
         return await res.json()
-        
+
     }
-    
+
     const nextOrPerviousPageHandler = async (link: any) => {
         const result = await getListEmployee(link)
-            if (result.hasOwnProperty('results') && Array.isArray(result.results)){
+        if (result.hasOwnProperty('results') && Array.isArray(result.results)) {
             let temp = [...result.results]
             let arrays = [], size = 5;
-            
+
             while (temp.length > 0)
                 arrays.push(temp.splice(0, size));
             let Rows = arrays.map((arr: Array<any>) => {
                 const Cols = arr.map((value: any, index: any) => {
                     return (
-                        <Col><EmployeeCard name={value.full_name} title={value.job_title} img={value.img} id={value.id} key={index}/></Col>
+                        <Col><EmployeeCard name={value.full_name} title={value.job_title} img={value.img} id={value.id} key={index} /></Col>
                     )
                 })
-                
-                
+
+
                 return (
-                    <Row gutter={[50,20]}>{Cols}</Row>
+                    <Row gutter={[50, 20]}>{Cols}</Row>
                 )
             })
 
             setComponents(Rows)
-            setPagination({next:result.next, previous: result.previous})
-            console.log(result);
-            
+            setPagination({ next: result.next, previous: result.previous })
+
+
+        }
     }
-}
-    
+
     const onSearchByID = async (value: any) => {
-        
+        const result = await getListEmployee(process.env.REACT_APP_API + '/employees_list', { id: Number(value) })
+        if (result.hasOwnProperty('results') && Array.isArray(result.results)) {
+            let temp = [...result.results]
+            let arrays = [], size = 5;
+
+            while (temp.length > 0)
+                arrays.push(temp.splice(0, size));
+            let Rows = arrays.map((arr: Array<any>) => {
+                const Cols = arr.map((value: any, index: any) => {
+                    return (
+                        <Col><EmployeeCard name={value.full_name} title={value.job_title} img={value.img} id={value.id} key={index} /></Col>
+                    )
+                })
+
+
+                return (
+                    <Row gutter={[50, 20]}>{Cols}</Row>
+                )
+            })
+
+            setComponents(Rows)
+            setPagination({ next: result.next, previous: result.previous })
+        }
     }
 
     const onSearchByName = async (value: any) => {
-        
-    }
-    
+        const result = await getListEmployee(process.env.REACT_APP_API + '/employees_list', { search_name: value })
+        if (result.hasOwnProperty('results') && Array.isArray(result.results)) {
+            let temp = [...result.results]
+            let arrays = [], size = 5;
 
-    
+            while (temp.length > 0)
+                arrays.push(temp.splice(0, size));
+            let Rows = arrays.map((arr: Array<any>) => {
+                const Cols = arr.map((value: any, index: any) => {
+                    return (
+                        <Col><EmployeeCard name={value.full_name} title={value.job_title} img={value.img} id={value.id} key={index} /></Col>
+                    )
+                })
+
+
+                return (
+                    <Row gutter={[50, 20]}>{Cols}</Row>
+                )
+            })
+
+            setComponents(Rows)
+            setPagination({ next: result.next, previous: result.previous })
+        }
+    }
+
+
+
     return (
         <>
             <Space>
-                <Search placeholder="Search By ID" width={100} enterButton style={{marginBlock: 20}} />
-                <Search placeholder="Search by First Name" width={100} enterButton style={{marginBlock: 20}} />
+                <Search placeholder="Search By ID" width={100} enterButton style={{ marginBlock: 20 }} onSearch={onSearchByID} />
+                <Search placeholder="Search by First Name" width={100} enterButton style={{ marginBlock: 20 }} onSearch={onSearchByName} />
             </Space>
-            
-            {components}
-            <Space style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
-            <Tooltip title="pervious">
-                <Button  disabled={!Boolean(pagination.previous)} type="primary" shape="circle" icon={<LeftOutlined />} onClick={nextOrPerviousPageHandler.bind(null, pagination.previous)} />
-            </Tooltip>
 
-            <Tooltip title="next"  >
-                <Button disabled={!Boolean(pagination.next)} type="primary" shape="circle" icon={<RightOutlined />} onClick={nextOrPerviousPageHandler.bind(null, pagination.next)} />
-            </Tooltip>
+            {components}
+            <Space style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+                <Tooltip title="pervious">
+                    <Button disabled={!Boolean(pagination.previous)} type="primary" shape="circle" icon={<LeftOutlined />} onClick={nextOrPerviousPageHandler.bind(null, pagination.previous)} />
+                </Tooltip>
+
+                <Tooltip title="next"  >
+                    <Button disabled={!Boolean(pagination.next)} type="primary" shape="circle" icon={<RightOutlined />} onClick={nextOrPerviousPageHandler.bind(null, pagination.next)} />
+                </Tooltip>
             </Space>
 
         </>
@@ -123,7 +168,7 @@ interface CardProps {
     id: number,
     img?: string
 }
-const EmployeeCard: React.FC<CardProps> = ({ name, title, img, id}: CardProps) => {
+const EmployeeCard: React.FC<CardProps> = ({ name, title, img, id }: CardProps) => {
 
     return (
         <Card
@@ -139,15 +184,13 @@ const EmployeeCard: React.FC<CardProps> = ({ name, title, img, id}: CardProps) =
                 />
             }
             actions={[
-                <SettingOutlined key="setting" />,
                 <EditOutlined key="edit" />,
-                <EllipsisOutlined key="ellipsis" />,
-              ]}
-            
+            ]}
+
         >
             <Meta title={name} description={title} />
             <Space><Text strong>ID : {id}</Text></Space>
-            
+
         </Card>
     )
 }
