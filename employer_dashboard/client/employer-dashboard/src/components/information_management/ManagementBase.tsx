@@ -3,6 +3,7 @@ import { Layout, Tabs } from 'antd'
 import EmployeeForm from "./EmployeeForm";
 import Assets from "./Assets";
 import Sections from "./Sections";
+import BankAccounts from "./BankAccounts";
 const { Content } = Layout
 const { TabPane } = Tabs
 
@@ -33,7 +34,7 @@ const ManagementBase: React.FC = () => {
                     <Sections />
                 </TabPane>
 
-                <TabPane tab="Sections" key="5">
+                <TabPane tab="Bank Accounts" key="5">
                     <BankAccounts />
                 </TabPane>
             </Tabs>

@@ -10,7 +10,7 @@ router = DefaultRouter()
 router.register('employee_viewset', EmployeeViewSet, basename='employee_viewset')
 router.register('assert_viewset', AssetsViewSet, basename='assert_viewset')
 router.register('section_viewset', SectionViewSet, basename='section_viewset')
-router.register('bank_viewset', SectionViewSet, basename='bank_viewset')
+router.register('bank_viewset', BankViewSet, basename='bank_viewset')
 
 urlpatterns = [
     path('' , serve_dashboard , name='employer_dashboard'),
