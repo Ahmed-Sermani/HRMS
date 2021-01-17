@@ -181,9 +181,7 @@ from core.models import Asset, AssignedAsset, Employee
 from employee_dashboard.serializers.AssetSerializer import AssetSerializer
 from rest_framework import mixins
 class AssetsViewSet(ModelViewSet):
-    queryset = Asset.objects.all()
-    serializer_class = AssetSerializer
-    permission_classes = [permissions.IsAuthenticated, IsEmployer]
+    
 
     def create(self, request, *args, **kwargs):
         asset = Asset()
@@ -209,6 +207,17 @@ class AssetsViewSet(ModelViewSet):
         
         return Response({'success': True})
     
-    def perform_update(self, serializer, **kwargs):
-        print('ssss')
 
+
+from employee_dashboard.serializers.SectionSerializer import SectionSerializer, Section
+class SectionViewSet(ModelViewSet):
+    queryset = Section.objects.all()
+    serializer_class = SectionSerializer
+    permission_classes = [permissions.IsAuthenticated, IsEmployer]
+
+
+from employee_dashboard.serializers.BankAccountSerializer import BankAccountSerializer, Bank_Account
+class BankViewSet(ModelViewSet):
+    queryset = Bank_Account.objects.all()
+    serializer_class = BankAccountSerializer
+    permission_classes = [permissions.IsAuthenticated, IsEmployer]
