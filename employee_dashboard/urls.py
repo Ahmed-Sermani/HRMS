@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views.dashboard import serve_dashboard ,optain_token, ProfileView, UploadImage, BankAccountViewSet, AssetsViewSet, ShiftView
+from .views.dashboard import serve_dashboard ,optain_token, ProfileView, UploadImage, BankAccountViewSet, AssetsViewSet, ShiftView, AttendanceListView
 from rest_framework.routers import DefaultRouter
 
 app_name='employee_dashboard'
@@ -13,5 +13,7 @@ urlpatterns = [
     path('api/get_profile_info', ProfileView.as_view(), name = 'profile_api'),
     path('api/upload_image', UploadImage.as_view(), name='upload_image'),
     path('api/', include(router.urls)),
-    path('api/shift', ShiftView.as_view(), name='employee_shift')
+    path('api/shift', ShiftView.as_view(), name='employee_shift'),
+    path('api/attendance_list', AttendanceListView.as_view(), name = 'attendance_list')
+
 ]

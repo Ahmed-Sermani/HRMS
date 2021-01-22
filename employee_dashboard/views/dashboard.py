@@ -16,7 +16,11 @@ from ..serializers.ShiftSubscriptionSerializer import ShiftSubscriptionSerialize
 from ..models.Bank_Account import Bank_Account
 from ..models.Shift_Subscription import Shift_Subscription
 from core.serializers.AssetEmployeeSerializer import AssetEmployeeSerializer
+from rest_framework import permissions
 from core import models
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.generics import ListAPIView
+
 
 @login_required
 @employee_required
@@ -140,4 +144,22 @@ class ShiftView(APIView):
             except Attendance.DoesNotExist:
                 return Response({'success': False, 'message': 'You Can Not CheckOut Before Checking in'})
 
+class IsEmployee(permissions.BasePermission):
+    
+    def has_permission(self, request, view):
+        return bool(request.user and request.user.is_employee)
 
+class StandardResultsSetPagination(PageNumberPagination):
+    page_size = 10
+    max_page_size = 10
+
+from employee_dashboard.serializers.AttendanceSerlizer import Attendance, AttendanceSerializer
+class AttendanceListView(ListAPIView):
+    queryset = Attendance.objects.all().order_by('-attendance_date')
+    serializer_class = AttendanceSerializer
+    pagination_class = StandardResultsSetPagination
+    permission_classes = [permissions.IsAuthenticated, IsEmployee]
+
+    def get_queryset(self):
+        return Attendance.objects.filter(employee_extra_info__employee__user_id = self.request.user.id)
+    
