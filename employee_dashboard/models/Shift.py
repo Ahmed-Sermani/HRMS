@@ -5,6 +5,8 @@ import json
 
 class Shift(models.Model):
 
+    name = models.CharField(max_length = 300)
+
     _from = models.TimeField()
 
     to  = models.TimeField()

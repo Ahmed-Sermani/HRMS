@@ -22,12 +22,6 @@ const EmployeeListAndActionsBase: React.FC = () => {
                 <TabPane tab="Employees List" key="1">
                     <EmployeeList />
                 </TabPane>
-                <TabPane tab="Bank Accounts" key="2">
-                    f
-            </TabPane>
-                <TabPane tab="Assets" key="3">
-                    asd
-            </TabPane>
             </Tabs>
         </Content>
     )

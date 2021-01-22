@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Layout, Tabs } from 'antd'
 import CheckInOut from './CheckInOut'
+import History from './History'
 import { Tokens, tokenContext, ShiftSub, shiftSubContext } from '../../context'
 const { TabPane }= Tabs
 const { Content } = Layout
@@ -31,7 +32,7 @@ const Attendance: React.FC = () => {
                     </shiftSubContext.Provider>
                 </TabPane>
                 <TabPane tab="Attendance History" key="2">
-                    History
+                    <History />
             </TabPane>
             </Tabs>
         </Content>
@@ -50,7 +51,7 @@ async function getShiftInfo(tokens: Tokens | undefined) {
     const result = await res.json()
     //@ts-ignore
     result.shift.polygon = JSON.parse(result.shift.polygon)
-    console.log(result)
+
     return result
 }
 

@@ -15,3 +15,36 @@
           margin-right: 0px;
   
     }
+    .App {
+      font-family: sans-serif;
+      text-align: center;
+      height: 100vh;
+    }
+    
+    .App-map {
+      height: 100%;
+      width: 100%;
+    }
+    
+    .dynamic-delete-button {
+      margin: 0 8px;
+      cursor: pointer;
+      position: relative;
+      top: 4px;
+      font-size: 24px;
+      color: #999;
+      transition: all 0.3s;
+    }
+    .dynamic-delete-button:hover {
+      color: #777;
+    }
+    .dynamic-delete-button[disabled] {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+      [data-theme="dark"] .dynamic-delete-button {
+        color: rgba(255,255,255,.45);
+      }
+      [data-theme="dark"] .dynamic-delete-button:hover {
+        color: rgba(255,255,255,.65);
+      }

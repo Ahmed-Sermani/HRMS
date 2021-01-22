@@ -8,6 +8,7 @@ import AppHeader from './components/Header'
 import { tokenContext } from "./context";
 import ManagementBase from "./components/information_management/ManagementBase";
 import  EmployeeListAndActionsBase  from "./components/employee_list_and_actions/EmployeeListAndActionsBase";
+import  ShitsBase  from "./components/shifts_management/ShitsBase";
 export interface StateType {
 	access: string,
 	refresh: string
@@ -42,6 +43,10 @@ const App: React.FC = () => {
 
 							<Route path='/employee_list_and_actions'>
 								<EmployeeListAndActionsBase />
+							</Route>
+
+							<Route path='/shifts'>
+								<ShitsBase />
 							</Route>
 						</Switch>
 

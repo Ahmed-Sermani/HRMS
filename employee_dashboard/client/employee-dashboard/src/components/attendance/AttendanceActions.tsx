@@ -91,6 +91,10 @@ const AttendanceActions: React.FC = () => {
 					checked_time: shiftSub?.checking_info_for_today.checked_in_time
 				}
 			)
+			setCheckOutState({
+				...checkOutState,
+				disabled: false
+			})
 		}
 
 		//check if checked out

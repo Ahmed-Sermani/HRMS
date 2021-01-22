@@ -5,4 +5,6 @@ class ShiftSerializer(ModelSerializer):
 
     class Meta:
         model = Shift
-        fields = ('_from', 'to', 'days_of_week', 'polygon')
+        fields = '__all__'
+    
+    

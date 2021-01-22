@@ -18,7 +18,6 @@ import {
 
 import { EditOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { tokenContext } from "../../context";
-const { Option } = Select
 const { Search } = Input;
 const { Text } = Typography
 const { Meta } = Card;
@@ -412,7 +411,6 @@ const CardModalForm: React.FC<{ id: number }> = ({ id }) => {
         }catch(e){
             notification.error({message: 'Error Encountered While Updating'})
         }
-        console.log(values);
         
         values.setLoading(false)
         setVisible(false);

@@ -13,6 +13,7 @@ from django.db.utils import IntegrityError
 from django.db import transaction
 from rest_framework import generics
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.generics import ListAPIView
 from rest_framework.pagination import PageNumberPagination
 from employee_dashboard.models.Employee_Extra_Info import Employee_Extra_Info
 from employee_dashboard.serializers.EmployeeExtraInfoSerializer import EmployeeExtraInfoSerializer
@@ -140,8 +141,8 @@ class EmployeeAddUpdateView(views.APIView):
 
 
 class StandardResultsSetPagination(PageNumberPagination):
-    page_size = 5
-    max_page_size = 5
+    page_size = 3
+    max_page_size = 3
 
 class EmployeeListView(generics.ListAPIView):
      
@@ -181,7 +182,9 @@ from core.models import Asset, AssignedAsset, Employee
 from employee_dashboard.serializers.AssetSerializer import AssetSerializer
 from rest_framework import mixins
 class AssetsViewSet(ModelViewSet):
-    
+    queryset = Asset.objects.all()
+    serializer_class = AssetSerializer
+    permission_classes = [permissions.IsAuthenticated, IsEmployer]
 
     def create(self, request, *args, **kwargs):
         asset = Asset()
@@ -220,4 +223,61 @@ from employee_dashboard.serializers.BankAccountSerializer import BankAccountSeri
 class BankViewSet(ModelViewSet):
     queryset = Bank_Account.objects.all()
     serializer_class = BankAccountSerializer
+    permission_classes = [permissions.IsAuthenticated, IsEmployer]
+
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+
+
+from employee_dashboard.serializers.ShiftSerializer import ShiftSerializer, Shift
+from employee_dashboard.models.Shift_Subscription import Shift_Subscription
+class ShiftViewSet(ModelViewSet):
+    queryset = Shift.objects.all()
+    serializer_class = ShiftSerializer
+    permission_classes = [permissions.IsAuthenticated, IsEmployer]
+
+
+    def create(self, request):
+        import json
+        from datetime import time
+        data = request.data
+        shift = Shift()
+        shift.days_of_week = data['days_of_week']
+        shift.name = data['name']
+        shift.polygon = json.dumps(data['polygon'])
+        shift._from = data['_from']
+        shift.to = data['to']
+        subs = []
+        for employee_email in data['employees']:
+        
+            try:
+                emp = Employee_Extra_Info.objects.get(employee__user__email = employee_email)
+            except Employee_Extra_Info.DoesNotExist:
+                return Response({
+                    'success': False,
+                    'message': f'Employee with email {employee_email} does not exist'
+                })
+            
+            sub = Shift_Subscription()
+            sub.employee_extra_info = emp
+            sub.shift = shift
+            subs.append(sub)
+    
+        with transaction.atomic():
+            shift.save()
+            for sub in subs:
+                sub.save()
+        
+
+        return Response({
+            'success': True
+        })   
+
+
+from employee_dashboard.serializers.AttendanceSerlizer import Attendance, AttendanceSerializer
+class AttendanceListView(ListAPIView):
+    queryset = Attendance.objects.all().order_by('-attendance_date')
+    serializer_class = AttendanceSerializer
+    pagination_class = StandardResultsSetPagination
     permission_classes = [permissions.IsAuthenticated, IsEmployer]
