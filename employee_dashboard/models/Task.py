@@ -5,7 +5,9 @@ class Task(models.Model):
 
     Title = models.CharField(max_length = 50)
 
-    assigned_at = models.DateTimeField(default = now)
+
+
+    assigned_at = models.DateTimeField(default = now, null= True)
 
     deadline = models.DateTimeField()
 
@@ -24,4 +26,15 @@ class Task(models.Model):
         default = 'New'
     )
 
-    
+    task_enum = [
+        ('Scheduled', 'Scheduled'),
+        ('Instant', 'Instant'),
+    ]
+
+    task_type = models.CharField(
+        choices = task_enum,
+        max_length = 20,
+        default = 'Instant'
+    )
+
+    send_at = models.DateTimeField(default = now, null= True)

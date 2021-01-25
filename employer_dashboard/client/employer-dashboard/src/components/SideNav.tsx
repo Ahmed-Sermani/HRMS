@@ -6,11 +6,9 @@ import { Link } from "react-router-dom";
 import {
     UnorderedListOutlined,
     EnvironmentOutlined,
-    TeamOutlined,
-    FileOutlined,
+    CalendarOutlined,
     InfoCircleOutlined
 } from '@ant-design/icons';
-const { SubMenu } = Menu;
 const { Sider } = Layout
 
 interface Props extends SiderProps{
@@ -40,12 +38,10 @@ const SideNav: React.FC<Props> = (props : Props) =>  {
                 Shifts
             </Link>
         </Menu.Item>
-        <SubMenu key="sub2" icon={<TeamOutlined />} title="Team">
-            <Menu.Item key="6">Team 1</Menu.Item>
-            <Menu.Item key="8">Team 2</Menu.Item>
-        </SubMenu>
-        <Menu.Item key="9" icon={<FileOutlined />}>
-            Files
+        <Menu.Item key="4" icon={<CalendarOutlined />}>
+            <Link to='/tasks'>
+                Tasks
+            </Link>
         </Menu.Item>
         </Menu>
     </Sider>
