@@ -2,7 +2,8 @@ from django.urls import path, include
 from .views.dashboard import serve_dashboard
 from .views.dashboard import optain_token
 from .views.dashboard import EmployeeAddUpdateView
-from .views.dashboard import EmployeeListView, EmployeeViewSet, AssetsViewSet, SectionViewSet, BankViewSet, ShiftViewSet, AttendanceListView
+from .views.dashboard import EmployeeListView, EmployeeViewSet, AssetsViewSet,\
+     SectionViewSet, BankViewSet, ShiftViewSet, AttendanceListView, TaskViewSet
 from rest_framework.routers import DefaultRouter
 app_name = 'employer_dashboard'
 
@@ -12,6 +13,7 @@ router.register('assert_viewset', AssetsViewSet, basename='assert_viewset')
 router.register('section_viewset', SectionViewSet, basename='section_viewset')
 router.register('bank_viewset', BankViewSet, basename='bank_viewset')
 router.register('shift_viewset', ShiftViewSet, basename='shift_viewset')
+router.register('task_viewset', TaskViewSet, basename='task_viewset')
 
 urlpatterns = [
     path('' , serve_dashboard , name='employer_dashboard'),

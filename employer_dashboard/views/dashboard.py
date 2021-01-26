@@ -281,3 +281,48 @@ class AttendanceListView(ListAPIView):
     serializer_class = AttendanceSerializer
     pagination_class = StandardResultsSetPagination
     permission_classes = [permissions.IsAuthenticated, IsEmployer]
+
+
+from employee_dashboard.serializers.TaskSerializer import TaskSerializer, Task
+class TaskViewSet(ModelViewSet):
+    queryset = Task.objects.all().order_by('-deadline')
+    serializer_class = AttendanceSerializer
+    pagination_class = StandardResultsSetPagination
+    permission_classes = [permissions.IsAuthenticated, IsEmployer]
+
+    def create(self, request):
+        data = request.data
+        try:
+            emp = Employee_Extra_Info.objects.get(employee__user__email = data['employee'])
+        except Employee_Extra_Info.DoesNotExist:
+            return Response({
+                'success': False,
+                'message': 'No Such Employee with this Email'
+            })
+        
+        
+        task = Task()
+        task.title = data['title']
+        task.assigned_to = emp
+        task.description = data['description']
+        task.deadline = data['dead_line']
+        task.status = 'New'
+
+        if data['schedule']:
+            task.task_type = 'Scheduled'
+            task.send_at = data['send_at']
+            task.assigned_at = None
+
+        task.save()
+        return Response({
+                'success': True
+            })
+        
+        
+
+
+
+        
+        # datetime.strptime('2021-01-27 04:57:40', '%Y-%m-%d %H:%M:%S')
+
+# 04:57:26', 'schedule': True, 'send_at': '2021-01-27 04:57:40'}

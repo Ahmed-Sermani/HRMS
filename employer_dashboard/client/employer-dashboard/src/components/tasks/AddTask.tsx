@@ -1,5 +1,7 @@
-import { Form, Input, DatePicker, Button, Switch } from 'antd';
-
+import { Form, Input, DatePicker, Button, Switch, notification } from 'antd';
+import { useContext } from 'react';
+import { tokenContext } from "../../context";
+const { useForm } = Form
 const layout = {
     labelCol: { span: 5 },
     wrapperCol: { span: 10 },
@@ -10,19 +12,55 @@ const layout = {
 };
 
 const AddTask = () => {
-    const onFinish = (values: any) => {
-        console.log(values);
+    const [form] = Form.useForm();
+    const tokens = useContext(tokenContext)
+
+    const onFinish = async (values: any) => {
+
+        values.dead_line = values.dead_line.format('YYYY-MM-DD HH:mm:ss')
+        if (values.schedule) {
+            values.send_at = values.send_at.format('YYYY-MM-DD HH:mm:ss')
+        }
+        
+        
+        try {
+            const res = await fetch(process.env.REACT_APP_API + '/task_viewset/', {
+                method: 'POST',
+                headers: {
+                    Authorization: 'Bearer ' + tokens?.access,
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(values)
+            })
+
+            const result = await res.json()
+
+            if (!result.success){
+                notification.error({message: result.message})
+                return
+           }
+
+           notification.success({message: 'Added Successfully'})
+           form.resetFields()
+            
+        }
+        catch(e){
+            notification.error({message: 'Error Encountered while adding the task'})
+        }
+
+        
     };
 
     return (
-        <Form {...layout} name="nest-messages" onFinish={onFinish} size='large' >
+        <Form {...layout} form={form} name="nest-messages" onFinish={onFinish} size='large' >
             <Form.Item name='employee' label="Assign To" rules={[{ required: true }, { type: 'email' }]}>
                 <Input />
             </Form.Item>
-            <Form.Item name='Title' label="Title" rules={[{ required: true }]}>
+            <Form.Item name='title' label="Title" rules={[{ required: true }]}>
                 <Input />
             </Form.Item>
-            
+
             <Form.Item name='description' label="Description" rules={[{ required: true }]}>
                 <Input.TextArea />
             </Form.Item>
