@@ -141,8 +141,8 @@ class EmployeeAddUpdateView(views.APIView):
 
 
 class StandardResultsSetPagination(PageNumberPagination):
-    page_size = 10
-    max_page_size = 10
+    page_size = 3
+    max_page_size = 3
 
 class EmployeeListView(generics.ListAPIView):
      
@@ -286,7 +286,7 @@ class AttendanceListView(ListAPIView):
 from employee_dashboard.serializers.TaskSerializer import TaskSerializer, Task
 class TaskViewSet(ModelViewSet):
     queryset = Task.objects.all().order_by('-deadline')
-    serializer_class = AttendanceSerializer
+    serializer_class = TaskSerializer
     pagination_class = StandardResultsSetPagination
     permission_classes = [permissions.IsAuthenticated, IsEmployer]
 

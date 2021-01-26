@@ -1,6 +1,7 @@
 import React from 'react'
 import { Layout, Tabs } from 'antd'
 import AddTask from "./AddTask";
+import TaskList from "./TaskList";
 
 
 const { Content } = Layout
@@ -26,7 +27,7 @@ const TasksBase: React.FC = () => {
                 </TabPane>
                 
                 <TabPane tab="Tasks" key="2">
-                    asdf
+                    <TaskList />
                 </TabPane>
 
 
