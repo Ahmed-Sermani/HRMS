@@ -83,22 +83,19 @@ const App: React.FC = () => {
 // }
 
 async function getTokens() {
-	const res = await fetch(process.env.REACT_APP_API_AUTH + '/token/ ',
-		{
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				'Accept': 'application/json'
-			},
-			body: JSON.stringify({
-				email: 'test@test.com',
-				password: 'a1h2m3d4'
-			})
-		}
-	)
-	const result = await res.json()
-	console.log(result)
-	return result
+	const res = await fetch(process.env.REACT_APP_API + '/get_token',
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    }
+  )
+  const result = await res.json()
+  console.log(result)
+  return result
+
 
 }
 

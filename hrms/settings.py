@@ -34,7 +34,11 @@ INSTALLED_APPS = [
 
     'rest_framework',
 
-    'corsheaders'
+    'corsheaders',
+
+    'django_celery_results',
+
+    'django_celery_beat'
 ]
 
 MIDDLEWARE = [
@@ -185,3 +189,10 @@ from datetime import timedelta
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=130)
 }
+
+
+BROKER_URL = 'redis://localhost:6379/0'
+CELERY_TIMEZONE = 'Asia/Riyadh'
+CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'

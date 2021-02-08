@@ -7,7 +7,7 @@ class Task(models.Model):
 
 
 
-    assigned_at = models.DateTimeField(default = now, null= True)
+    assigned_at = models.DateTimeField(default = now, null= True, blank = True)
 
     deadline = models.DateTimeField()
 

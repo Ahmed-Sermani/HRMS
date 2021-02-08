@@ -5,6 +5,7 @@ import { Layout } from 'antd';
 import SideNav from './components/SideNav';
 import Profile from './components/profile/Profile'
 import Attendance from './components/attendance/Attendance'
+import Tasks from './components/tasks/Tasks'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import AppHeader from './components/Header'
 import { tokenContext } from "./context";
@@ -40,6 +41,11 @@ const App: React.FC = () => {
             <Route path='/employee/attendance'>
               <Attendance />
             </Route>
+
+            <Route path='/employee/tasks'>
+              <Tasks />
+            </Route>
+            
           </Switch>
 
         </Layout>
@@ -62,7 +68,6 @@ async function getTokens() {
     }
   )
   const result = await res.json()
-  console.log(result)
   return result
 
 }

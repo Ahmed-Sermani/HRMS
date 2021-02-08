@@ -2,7 +2,9 @@ from django.core.management import call_command
 from django.core.management.base import BaseCommand, CommandError
 from django.utils import timezone
 from django.conf import settings
-from employee_dashboard.models import Attendance, Shift_Subscription, Employee_Extra_Info
+from employee_dashboard.models.Attendance import Attendance
+from employee_dashboard.models.Shift_Subscription import  Shift_Subscription
+from employee_dashboard.models.Employee_Extra_Info import Employee_Extra_Info
 
 
 class Command(BaseCommand):
@@ -20,10 +22,12 @@ class Command(BaseCommand):
 
         # look to there shift to see if their are ok
         for attend in checked_in:
-
-            shift_subscription = Shift_Subscription.objects.get(
-                employee_extra_info=attend.employee_extra_info
-                )
+            try:
+                shift_subscription = Shift_Subscription.objects.get(
+                    employee_extra_info=attend.employee_extra_info
+                    )
+            except Shift_Subscription.DoesNotExist:
+                continue
             _from = shift_subscription.shift._from
             to = shift_subscription.shift.to
 
@@ -55,9 +59,12 @@ class Command(BaseCommand):
         now = timezone.now().time()
 
         for employee in absent_employees:
-
-            shift_subscription = Shift_Subscription.objects.get( employee_extra_info = employee )
             
+            try:
+                shift_subscription = Shift_Subscription.objects.get( employee_extra_info = employee )
+            except Shift_Subscription.DoesNotExist:
+                continue
+
             Attendance.objects.create(
                 employee_extra_info = employee,
                 check_in = now,

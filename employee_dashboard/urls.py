@@ -1,11 +1,13 @@
 from django.urls import path, include
-from .views.dashboard import serve_dashboard ,optain_token, ProfileView, UploadImage, BankAccountViewSet, AssetsViewSet, ShiftView, AttendanceListView
+from .views.dashboard import serve_dashboard ,optain_token, ProfileView, UploadImage,\
+     BankAccountViewSet, AssetsViewSet, ShiftView, AttendanceListView, TaskViewSet
 from rest_framework.routers import DefaultRouter
 
 app_name='employee_dashboard'
 router = DefaultRouter()
 router.register('bank_accounts', BankAccountViewSet, basename= 'bank_accounts')
 router.register('assets' , AssetsViewSet, basename='assets')
+router.register('task_viewset' , TaskViewSet, basename='task_viewset')
 
 urlpatterns = [
     path('' , serve_dashboard , name='employee_dashboard'),

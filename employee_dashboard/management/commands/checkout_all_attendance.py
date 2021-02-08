@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-from employee_dashboard.models import Attendance
+from employee_dashboard.models.Attendance import Attendance
 
 class Command(BaseCommand):
     help = """

@@ -163,3 +163,23 @@ class AttendanceListView(ListAPIView):
     def get_queryset(self):
         return Attendance.objects.filter(employee_extra_info__employee__user_id = self.request.user.id)
     
+
+from employee_dashboard.serializers.TaskSerializer import TaskSerializer, Task
+from django.db.models import Q
+
+class TaskViewSet(ModelViewSet):
+    serializer_class = TaskSerializer
+    permission_classes = [permissions.IsAuthenticated, IsEmployee]
+
+    def get_queryset(self):
+        return Task.objects.filter(Q(status = 'New') | Q(status = 'In Progress'))\
+            .filter(assigned_to__employee__user_id = self.request.user.id)\
+            .filter(assigned_at__isnull = False).order_by('-deadline')
+    
+    def update(self, request, pk=None):
+        task = Task.objects.get(pk = pk)
+        task.status = request.data['status']
+        task.save()
+
+        return Response(status=200, data={})
+    
