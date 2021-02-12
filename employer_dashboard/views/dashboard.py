@@ -17,10 +17,13 @@ from rest_framework.generics import ListAPIView
 from rest_framework.pagination import PageNumberPagination
 from employee_dashboard.models.Employee_Extra_Info import Employee_Extra_Info
 from employee_dashboard.serializers.EmployeeExtraInfoSerializer import EmployeeExtraInfoSerializer
+from django.shortcuts import render
+
 @login_required
 @employer_required
 def serve_dashboard(request):
-    return HttpResponse(b'Employer Dashboard')
+
+    return render(request , 'employer_dashboard/index.html' )
 
 
 @csrf_exempt
