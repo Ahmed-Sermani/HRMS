@@ -144,8 +144,8 @@ class EmployeeAddUpdateView(views.APIView):
 
 
 class StandardResultsSetPagination(PageNumberPagination):
-    page_size = 3
-    max_page_size = 3
+    page_size = 10
+    max_page_size = 10
 
 class EmployeeListView(generics.ListAPIView):
      
